@@ -142,8 +142,6 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
 
-NeoBundle 'edkolev/tmuxline.vim'
-
 call neobundle#end()
 
 
