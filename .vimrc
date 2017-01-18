@@ -1,11 +1,8 @@
-
 "256bit color GUI
 set t_Co=256
-
 "Select utf-8
 set encoding=utf-8
 scriptencoding utf-8
-
 "VIEW CONFIG
 
 "Show line numbers
@@ -47,7 +44,7 @@ set sidescrolloff=16
 
 "Auto read from outside changed
 set autoread
-
+"
 "No backup files
 set nobackup
 
@@ -126,12 +123,11 @@ NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 
+"Tree view
+NeoBundle 'scrooloose/nerdtree'
+
 "Coloring status line
 NeoBundle 'itchyny/lightline.vim'
-"Coloring html5 tags
-NeoBundle 'othree/html5.vim'
-"Coloring CSS3
-NeoBundle 'hail2u/vim-css3-syntax'
 
 "Color scheme
 NeoBundle 'tomasr/molokai'
@@ -142,12 +138,11 @@ NeoBundle 'Yggdroot/indentLine'
 "Comment out at once
 NeoBundle 'tomtom/tcomment_vim'
 
-"file and directory
-NeoBundle 'Shougo/unite.vim'
-
 "git
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
+
+NeoBundle 'edkolev/tmuxline.vim'
 
 call neobundle#end()
 
@@ -172,12 +167,15 @@ let g:molokai_original = 1
 let g:rehash256 = 1
 
 
-
-"unite config
-let g:unite_force_overwrite_statusline = 0
-
-
-
+"nerdtree config
+"only 'vim' open nerdtree on current dir
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"vim [dir_name] open with nerdtree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+"toggle Ctrl+n
+map <C-n> :NERDTreeToggle<CR>
 
 "neo complete config
 let g:neocomplete#enable_at_startup = 1
@@ -206,7 +204,7 @@ let g:lightline = {
   \ 'colorscheme': 'wombat',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'git-branch', 'readonly', 'filename', 'modified' ] ],
+  \             [ 'git-branch', 'readonly', 'filename', 'modified'] ],
   \   'right': [ [ 'lineinfo' ],
   \              [ 'percent' ],
   \              [ 'fileformat', 'fileencodinf', 'filetype'],
@@ -219,12 +217,12 @@ let g:lightline = {
   \   'filename': 'LightLineFilename',
   \   'gitgutter': 'LightLineGitGutter'
   \ },
-  \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-  \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3"},
+  \ 'separator': { 'left': "\ue0b0",'right': "\ue0b2" },
+  \ 'subseparator': { 'left': "\ue0b1",'right': "\ue0b3"},
   \ }
 
 function! LightLineModified()
-  return &modifiable && &modified ? '+' : ''
+  return &modifiable && &modified ?'+' : ''
 endfunction
 
 function! LightLineReadonly()
@@ -234,7 +232,7 @@ endfunction
 
 function LightLineFilename()
   return &ft == 'unite' ? unite#get_status_string() :
-         \ expand('%:t') != '' ? expand('%:t') : '[No Name]'
+    \ expand('%:t') != '' ? expand('%:t') : '[No Name]'
 endfunction
 
 function LightLineGitBranch()
@@ -250,9 +248,9 @@ function LightLineGitGutter()
     return ''
   endif
   let symbols = [
-              \ g:gitgutter_sign_added,
-              \ g:gitgutter_sign_modified,
-              \ g:gitgutter_sign_removed ]
+    \ g:gitgutter_sign_added,
+    \ g:gitgutter_sign_modified,
+    \ g:gitgutter_sign_removed ]
   let hunks = GitGutterGetHunkSummary()
   let _ = []
   for i in [0, 1, 2]
