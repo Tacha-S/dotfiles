@@ -1,123 +1,80 @@
-
-
 export EDITOR='vim'
-#KCODE utf-8
+# KCODE utf-8
 export KCODE=u
-export
 
 # General
 
+# disable beep
 setopt no_beep
+# don't exit Ctrl+D
 setopt ignore_eof
+# don't flow control
+setopt no_flow_control
+# insert '/' after dir param
 setopt auto_param_slash
-#Add '/' to directory
+# insert '/' after dir
 setopt mark_dirs
-#Japanese
+# enable japanese
 setopt print_eight_bit
-#Fix typo
+# fix typo
 setopt correct
-#Extend wild card
+# extend wild card
 setopt extended_glob
-#dotfile
+# catch dotfiles nothing '.'
 setopt globdots
 
 # Directory
 
+# can cd only dir
 setopt auto_cd
-#Add directory stack
+# auto push by cd
 setopt auto_pushd
-#Don't add almost exist directory
+# ignore dups
 setopt pushd_ignore_dups
 
 # History
 
+# save history
 HISTFILE=~/.zsh_history
+# save size
 HISTSIZE=100000
 SAVEHIST=100000
+# add time to history
 setopt extended_history
+# ignore dups
 setopt hist_ignore_all_dups
+# reduce blank
 setopt hist_reduce_blanks
+# add history soon
 setopt inc_append_history
-#Don't store 'history' command
+# don't store 'history'
 setopt hist_no_store
 
-# Key Bind
+# Color
 
-bindkey -v
-
-# Colors
-
+TERM=xterm-256color
 autoload -Uz colors; colors
 export LS_COLORS='no=00;38;5;252:rs=0:di=01;38;5;111:ln=01;38;5;113:mh=00:pi=48;5;241;38;5;192;01:so=48;5;241;38;5;192;01:do=48;5;241;38;5;192;01:bd=48;5;241;38;5;177;01:cd=48;5;241;38;5;177;01:or=48;5;236;38;5;196:su=48;5;209;38;5;235:sg=48;5;192;38;5;235:ca=30;41:tw=48;5;113;38;5;235:ow=48;5;113;38;5;111:st=48;5;111;38;5;235:ex=01;38;5;209:*#=00;38;5;246:*~=00;38;5;246:*.o=00;38;5;246:*.swp=00;38;5;246:'
-
-# cdr
-
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook 
-add-zsh-hook chpwd chpwd_recent_dirs
-zstyle ':chpwd:*' recent-dirs-default true
-zstyle ':chpwd:*' recent-dirs-file    "$HOME/.config/zsh/chpwd-recent-dirs"
-zstyle ':chpwd:*' recent-dirs-max     1000
-zstyle ':chpwd:*' recent-dirs-pushd   true
-
-[ ! -d $HOME/.config/zsh ] && mkdir -p $HOME/.config/zsh
-
 
 # Completion
 
 autoload -Uz compinit; compinit
-#Complete after equal
+# complete after equal
 setopt magic_equal_subst
+# packed too many
 setopt list_packed
 
-zstyle ':Completion:*' completer _expand _complete _match _prefix _approximate _list _history
-zstyle ':Completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' matcher-list '' '+m:{a-z}={A-Z}' 'r:|[._-]=** r:|=**' 'l:|=* r:|=*'
-#Enable ↑↓←→
+
+
+# enable ↑↓←→
 zstyle ':completion:*:default' menu select=2
-#Faster apg-get and so on
-zstyle ':completion:*' use-cache true
-zstyle ':completion:*' recent-dirs-insert both
-zstyle ':completion:*:*:cdr:*:*' menu selection
-zstyle ':completion:*:kill:*' force-list always
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-zstyle ':completion:*:processes-names' command  'ps c -u ${USER} -o command | uniq'
-
-# Prompt
-
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git svn hg
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr '%F{red}'
-zstyle ':vcs_info:*' unstagedstr '%F{yellow}'
-zstyle ':vcs_info:*' formats '%u%c%b'
-zstyle ':vcs_info:*' actionformats '%u%c%b|%a'
-zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
-
-function +vi-git-untracked() {
-  if command git status --porcelain 2> /dev/null \
-    | awk '{print $1}' \
-    | command grep -F '??' > /dev/null 2>&1 ; then
-    hook_com[unstaged]+='%F{yellow}'
-  fi
-}
-
-function update_vcs_info() {
-  psvar=()
-  vcs_info
-  [[ -n $vcs_info_msg_0_ ]] && echo $vcs_info_msg_0_
-}
-
-setopt prompt_subst
-PROMPT=$'
-%{$fg_bold[yellow]%}%n@%m %{$fg_bold[green]%}%~%{$reset_color%} %{$fg_bold[blue]%}`update_vcs_info`%{$reset_color%}
-%(?,,%{$fg_bold[red]%}%? )%{$reset_color%}❯ '
-RPROMPT='%D{%H:%M:%S}'
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
 
 
-
-# Alias
-
+# alias
 alias ls='ls --color=auto'
 alias lla='ls -la --color=auto'
 alias ll='ls -l --color=auto'
@@ -125,3 +82,23 @@ alias la='ls -a --color=auto'
 alias grep='grep --color=auto'
 alias df='df -h'
 
+source ~/.zplug/init.zsh
+
+zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+
+if ! zplug check --verbose; then
+    printf 'Install? [y/N]: '
+    if read -q; then
+      echo; zplug install
+  fi
+fi
+
+zplug load --verbose
+
+
+# color theme config
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time)
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
+POWERLEVEL9K_MULTILINE_SECOND_PROMPT_PREFIX=""

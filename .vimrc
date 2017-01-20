@@ -120,8 +120,12 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 "Code complete
 NeoBundle 'Shougo/neocomplete'
+NeoBundle 'justmao945/vim-clang'
+
+"snippet
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
+
 
 "Tree view
 NeoBundle 'scrooloose/nerdtree'
@@ -142,6 +146,9 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
 
+"syntax
+NeoBundle 'octol/vim-cpp-enhanced-highlight'
+
 call neobundle#end()
 
 
@@ -155,11 +162,13 @@ NeoBundleCheck
 "Enable color scheme
 syntax enable
 
+"syntax config
+"cpp
+let g:cpp_class_scope_highlight = 1
+let g:cpp_experimental_simple_template_highlight = 1
+
 "Select color scheme
 colorscheme molokai
-
-
-
 "molokai config
 let g:molokai_original = 1
 let g:rehash256 = 1
@@ -187,6 +196,9 @@ if !exists('g:neocomplete#keyword_patterns')
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
@@ -194,6 +206,9 @@ let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
+"vim-clang config
+let g:clang_c_options = '-std=gnu11'
+let g:clang_cpp_options = '-std=c++14 -stdlib=libc++'
 
 
 

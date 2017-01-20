@@ -1,0 +1,11 @@
+[user]
+	name = Tatsuroh Sakaguchi
+	email = tacchan.mello.ioiq@gmail.com
+[push]
+	default = simple
+[alias]
+	cho = checkout
+  cm = commit -F-
+  graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  pr = pull-request
+  see = browse
