@@ -4,8 +4,14 @@
 [push]
 	default = simple
 [alias]
-	cho = checkout
+  alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/' | sort
+  cho = checkout
   cm = commit -F-
   graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   pr = pull-request
   see = browse
+  refresh= !git fetch origin && git remote prune origin
+  unstage = reset -q HEAD --
+  
+[core]
+	excludesfile = /home/tacha/.gitignore_global
