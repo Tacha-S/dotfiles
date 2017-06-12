@@ -12,6 +12,7 @@
   see = browse
   refresh= !git fetch origin && git remote prune origin
   unstage = reset -q HEAD --
-  
+  chopr = "!f(){ git fetch origin pull/$1/head:pull/$1 && git checkout pull/$1;};f"
+
 [core]
 	excludesfile = /home/tacha/.gitignore_global
