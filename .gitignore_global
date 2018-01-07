@@ -1,0 +1,11 @@
+# JetBrain
+.idea/*
+cmake-build-debug/
+
+# protos
+*.pb.h
+*.pb.cc
+
+
+# unity
+*/Editor/JetBrains/*
