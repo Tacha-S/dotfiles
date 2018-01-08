@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conversion>
+  <applied-converters>
+    <converter id="DockerRunConfigurationConverterProvider" />
+    <converter id="PythonTestConverterProvider" />
+    <converter id="js-debug-configuration-converter" />
+    <converter id="js-predefined-libraries-merged" />
+    <converter id="nodejs-remote-debug-configuration-converter" />
+  </applied-converters>
+  <project-files>
+    <file path="/home/tacha/Documents/test/.idea/codeStyles/codeStyleConfig.xml" timestamp="1515314212000" />
+    <file path="/home/tacha/Documents/test/.idea/inspectionProfiles/Project_Default.xml" timestamp="1515314183000" />
+    <file path="/home/tacha/Documents/test/.idea/modules.xml" timestamp="1515314183000" />
+    <file path="/home/tacha/Documents/test/.idea/test.iml" timestamp="1515314212000" />
+    <file path="/home/tacha/Documents/test/.idea/workspace.xml" timestamp="1515380007000" />
+  </project-files>
+</conversion>
+

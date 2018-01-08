@@ -1,0 +1,13 @@
+<application>
+  <component name="ToolbarClicksCollector">
+    <counts>
+      <entry action="CMake.ReloadCMakeProject@MainToolbar" count="1" />
+      <entry action="MaterialTheme.Accents@MainToolbar" count="2" />
+      <entry action="MaterialTheme.Components@MainToolbar" count="1" />
+      <entry action="MaterialTheme.Panels@MainToolbar" count="10" />
+      <entry action="MaterialTheme.ThemeChooser@MainToolbar" count="1" />
+      <entry action="com.intellij.find.SearchTextArea$ClearAction@unknown" count="1" />
+      <entry action="com.intellij.ui.CommonActionsPanel$MyActionButton@ToolbarDecorator" count="1" />
+    </counts>
+  </component>
+</application>
