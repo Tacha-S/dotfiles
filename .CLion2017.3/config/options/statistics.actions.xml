@@ -1,0 +1,43 @@
+<application>
+  <component name="ActionsCollector">
+    <counts>
+      <entry action="$Delete" count="3" />
+      <entry action="$Undo" count="4" />
+      <entry action="Back" count="1" />
+      <entry action="Build" count="5" />
+      <entry action="CMake.ReloadCMakeProject" count="1" />
+      <entry action="CommentByLineComment" count="4" />
+      <entry action="EditCustomVmOptions" count="1" />
+      <entry action="EditorBackSpace" count="24" />
+      <entry action="EditorChooseLookupItem" count="2" />
+      <entry action="EditorCopy" count="4" />
+      <entry action="EditorDown" count="4" />
+      <entry action="EditorEnter" count="1" />
+      <entry action="EditorLeft" count="5" />
+      <entry action="EditorPaste" count="8" />
+      <entry action="EditorRight" count="4" />
+      <entry action="EditorUp" count="2" />
+      <entry action="Find" count="1" />
+      <entry action="MTAddFileColors" count="1" />
+      <entry action="MTBiggerTabs" count="1" />
+      <entry action="MTCompactSidebarAction" count="1" />
+      <entry action="MTCompactStatusBarAction" count="1" />
+      <entry action="MTContrastAction" count="1" />
+      <entry action="MTDarculaArrows" count="1" />
+      <entry action="MTHideFileIconsAction" count="2" />
+      <entry action="MTMaterialArrows" count="1" />
+      <entry action="MTMonokaiTheme" count="1" />
+      <entry action="Macro.formatting on save" count="1" />
+      <entry action="MaterialTheme.Accents" count="2" />
+      <entry action="MaterialTheme.Components" count="1" />
+      <entry action="MaterialTheme.Panels" count="10" />
+      <entry action="MaterialTheme.ThemeChooser" count="1" />
+      <entry action="RenameElement" count="1" />
+      <entry action="SaveAll" count="1" />
+      <entry action="ShowSettings" count="4" />
+      <entry action="Synchronize" count="1" />
+      <entry action="Tool_External Tools_clang format" count="1" />
+      <entry action="com.chrisrm.idea.actions.accents.MTStrawberryAccentAction" count="1" />
+    </counts>
+  </component>
+</application>

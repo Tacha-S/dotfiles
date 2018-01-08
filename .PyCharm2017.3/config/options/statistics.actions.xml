@@ -1,0 +1,20 @@
+<application>
+  <component name="ActionsCollector">
+    <counts>
+      <entry action="EditCustomVmOptions" count="1" />
+      <entry action="EditorBackSpace" count="21" />
+      <entry action="EditorCopy" count="1" />
+      <entry action="EditorDown" count="1" />
+      <entry action="EditorPaste" count="1" />
+      <entry action="ExportSettings" count="1" />
+      <entry action="FileChooser.NewFolder" count="1" />
+      <entry action="MTAddFileColors" count="1" />
+      <entry action="MTCompactSidebarAction" count="1" />
+      <entry action="MTCompactStatusBarAction" count="1" />
+      <entry action="MTContrastAction" count="1" />
+      <entry action="MTMonokaiTheme" count="1" />
+      <entry action="ShowSettings" count="3" />
+      <entry action="com.chrisrm.idea.actions.accents.MTStrawberryAccentAction" count="1" />
+    </counts>
+  </component>
+</application>

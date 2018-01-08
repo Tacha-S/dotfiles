@@ -1,0 +1,15 @@
+<application>
+  <component name="UsageTrigger">
+    <counts>
+      <entry feature="StripeButton[Version Control].shown" count="1" />
+      <entry feature="ide.settings.Language Defaults" count="1" />
+      <entry feature="ide.settings.Material Custom Theme" count="5" />
+      <entry feature="ide.settings.Material Theme" count="4" />
+      <entry feature="ide.settings.Plugins" count="1" />
+      <entry feature="ide.settings.Toolchains" count="3" />
+      <entry feature="ideaapp.started" count="6" />
+      <entry feature="welcome.screen.OpenCPPProject" count="2" />
+      <entry feature="welcome.screen.WelcomeScreen.Configure" count="1" />
+    </counts>
+  </component>
+</application>

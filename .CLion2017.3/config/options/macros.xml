@@ -1,0 +1,9 @@
+<application>
+  <component name="ActionMacroManager">
+    <macro name="formatting on save">
+      <action id="Tool_External Tools_clang format" />
+      <action id="Synchronize" />
+      <action id="SaveAll" />
+    </macro>
+  </component>
+</application>
