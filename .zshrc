@@ -82,10 +82,6 @@ alias la='ls -a --color=auto'
 alias grep='grep --color=auto'
 alias df='df -h'
 
-# ROS
-export PATH=$PATH:/opt/ros/kinetic/bin
-alias catkin_make="catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python2 -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/libpython2.7.so"
-source /opt/ros/kinetic/setup.zsh
 
 # pyenv
 export PYENV_ROOT="${HOME}/.pyenv"
@@ -108,6 +104,9 @@ fi
 
 zplug load --verbose
 
+fpath=(~/.functions ${fpath})
+autoload -Uz git-escape-magic
+git-escape-magic
 
 # color theme config
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
