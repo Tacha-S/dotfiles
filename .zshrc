@@ -91,6 +91,8 @@ if [ -d "${PYENV_ROOT}" ]; then
     eval "$(pyenv virtualenv-init -)"
 fi
 
+export PIPENV_VENV_IN_PROJECT=true
+
 source ~/.zplug/init.zsh
 
 zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
