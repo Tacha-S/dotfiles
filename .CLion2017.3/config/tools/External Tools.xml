@@ -1,9 +1,0 @@
-<toolSet name="External Tools">
-  <tool name="clang format" description="formatting code" showInMainMenu="true" showInEditor="true" showInProject="true" showInSearchPopup="true" disabled="false" useConsole="false" showConsoleOnStdOut="false" showConsoleOnStdErr="false" synchronizeAfterRun="true">
-    <exec>
-      <option name="COMMAND" value="clang-format" />
-      <option name="PARAMETERS" value="-i $FileName$" />
-      <option name="WORKING_DIRECTORY" value="$FileDir$" />
-    </exec>
-  </tool>
-</toolSet>
