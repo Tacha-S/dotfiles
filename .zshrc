@@ -82,6 +82,9 @@ alias la='ls -a --color=auto'
 alias grep='grep --color=auto'
 alias df='df -h'
 
+# pipenv
+export WORKON_HOME=~/.venvs
+eval "$(pipenv --completion)"
 
 # pyenv
 export PYENV_ROOT="${HOME}/.pyenv"
@@ -91,9 +94,21 @@ if [ -d "${PYENV_ROOT}" ]; then
     eval "$(pyenv virtualenv-init -)"
 fi
 
-export PIPENV_VENV_IN_PROJECT=true
-
 source ~/.zplug/init.zsh
+
+# color theme config
+POWERLEVEL9K_MODE='awesome-fontconfig'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv docker_machine time)
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_HIDE_BRANCH_ICON=true
+POWERLEVEL9K_VCS_GIT_ICON='\uF09B'
+POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\uF09B'
+local user_symbol="$"
+    if [[ $(print -P "%#") =~ "#" ]]; then
+        user_symbol = "#"
+    fi
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%{%B%F{yellow}%K{blue}%} $user_symbol%{%b%f%k%F{blue}%} %{%f%}"
 
 zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
 
@@ -110,9 +125,3 @@ fpath=(~/.functions ${fpath})
 autoload -Uz git-escape-magic
 git-escape-magic
 
-# color theme config
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time)
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-POWERLEVEL9K_MULTILINE_SECOND_PROMPT_PREFIX=""
