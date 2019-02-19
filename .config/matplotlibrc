@@ -191,7 +191,7 @@ backend      : TkAgg
 ## The font.size property is the default font size for text, given in pts.
 ## 10 pt is the standard value.
 
-font.family         : Source Han Sans JP
+font.family         : Gen Shin Gothic P, IPAexGothic, Source Han Sans JP
 #font.style          : normal
 #font.variant        : normal
 #font.weight         : normal
@@ -551,7 +551,7 @@ axes.prop_cycle    : cycler('color', ['1f77b4', 'ff7f0e', '2ca02c', 'd62728', '9
 ### pdf backend params
 #pdf.compression   : 6   ## integer from 0 to 9
                          ## 0 disables compression (good for debugging)
-#pdf.fonttype       : 3         ## Output Type 3 (Type3) or Type 42 (TrueType)
+pdf.fonttype       : 42         ## Output Type 3 (Type3) or Type 42 (TrueType)
 #pdf.use14corefonts : False
 #pdf.inheritcolor : False
 
