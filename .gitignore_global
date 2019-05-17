@@ -9,3 +9,9 @@ cmake-build-debug/
 
 # unity
 */Editor/JetBrains/*
+
+# OSX
+.DS_Store
+
+# vscode
+.vscode/*

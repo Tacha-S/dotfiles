@@ -10,10 +10,10 @@
   graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   pr = pull-request
   see = browse
-  refresh= !git fetch origin && git remote prune origin
+  refresh= !git pull origin && git remote prune origin && git clean-br
   unstage = reset -q HEAD --
   chopr = "!f(){ git fetch origin pull/$1/head:pull/$1 && git checkout pull/$1;};f"
   clean-br = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|master'|xargs git branch -d; };f"
 
 [core]
-	excludesfile = /home/tacha/.gitignore_global
+	excludesfile = ~/.gitignore_global
