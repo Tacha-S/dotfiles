@@ -59,6 +59,7 @@ export LS_COLORS='no=00;38;5;252:rs=0:di=01;38;5;111:ln=01;38;5;113:mh=00:pi=48;
 # Completion
 
 autoload -Uz compinit; compinit
+fpath=(~/.zsh/completions ~/.zsh/functions/ $fpath)
 # complete after equal
 setopt magic_equal_subst
 # packed too many
@@ -89,11 +90,32 @@ eval "$(pipenv --completion)"
 # pyenv
 export PYENV_ROOT="${HOME}/.pyenv"
 if [ -d "${PYENV_ROOT}" ]; then
-    export PATH=${PYENV_ROOT}/bin:$PATH
-    eval "$(pyenv init -)"
+  export PATH=${PYENV_ROOT}/bin:$PATH
+  eval "$(pyenv init -)"
 fi
 
-source ~/.zplug/init.zsh
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zinit-zsh/z-a-patch-dl \
+    zinit-zsh/z-a-as-monitor \
+    zinit-zsh/z-a-bin-gem-node
+
+zinit light zsh-users/zsh-syntax-highlighting
 
 # color theme config
 POWERLEVEL9K_MODE='awesome-fontconfig'
@@ -108,19 +130,5 @@ local user_symbol="$"
         user_symbol = "#"
     fi
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%{%B%F{yellow}%K{blue}%} $user_symbol%{%b%f%k%F{blue}%} %{%f%}"
-
-zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
-
-if ! zplug check --verbose; then
-    printf 'Install? [y/N]: '
-    if read -q; then
-      echo; zplug install
-  fi
-fi
-
-zplug load --verbose
-
-fpath=(~/.functions ${fpath})
-autoload -Uz git-escape-magic
-git-escape-magic
-
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+### End of Zinit's installer chunk
