@@ -1,11 +1,12 @@
 [user]
-	name = Tatsuroh Sakaguchi
-	email = tacchan.mello.ioiq@gmail.com
+	name = Tatsuro Sakaguchi
+	email = tatsuro.sakaguchi@g.softbank.co.jp
 [push]
 	default = simple
 [alias]
   alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/' | sort
   cho = checkout
+  sw = switch
   cm = commit -F-
   graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   pr = pull-request
@@ -14,6 +15,9 @@
   unstage = reset -q HEAD --
   chopr = "!f(){ git fetch origin pull/$1/head:pull/$1 && git checkout pull/$1;};f"
   clean-br = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|master'|xargs git branch -d; };f"
+	push-f = push --force-with-lease
 
 [core]
 	excludesfile = ~/.gitignore_global
+[init]
+	templatedir = ~/.git_template

@@ -83,6 +83,9 @@ alias la='ls -a --color=auto'
 alias grep='grep --color=auto'
 alias df='df -h'
 
+# ROS
+source ~/ros/devel/setup.zsh
+
 # pipenv
 export WORKON_HOME=~/.venvs
 eval "$(pipenv --completion)"
@@ -94,6 +97,9 @@ if [ -d "${PYENV_ROOT}" ]; then
   eval "$(pyenv init -)"
 fi
 
+## CUDA and cuDNN paths
+export PATH=/usr/local/cuda-9.0/bin:${PATH}
+export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:${LD_LIBRARY_PATH}
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
@@ -116,6 +122,8 @@ zinit light-mode for \
     zinit-zsh/z-a-bin-gem-node
 
 zinit light zsh-users/zsh-syntax-highlighting
+zinit ice as"program" pick"tmuximum"
+zinit light arks22/tmuximum
 
 # color theme config
 POWERLEVEL9K_MODE='awesome-fontconfig'
@@ -132,3 +140,5 @@ local user_symbol="$"
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%{%B%F{yellow}%K{blue}%} $user_symbol%{%b%f%k%F{blue}%} %{%f%}"
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 ### End of Zinit's installer chunk
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
