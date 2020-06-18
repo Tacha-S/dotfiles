@@ -82,6 +82,7 @@ alias ll='ls -l --color=auto'
 alias la='ls -a --color=auto'
 alias grep='grep --color=auto'
 alias df='df -h'
+alias cb='cd ~/ros && catkin build && source devel/setup.zsh'
 
 # ROS
 source ~/ros/devel/setup.zsh
@@ -98,8 +99,8 @@ if [ -d "${PYENV_ROOT}" ]; then
 fi
 
 ## CUDA and cuDNN paths
-export PATH=/usr/local/cuda-9.0/bin:${PATH}
-export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:${LD_LIBRARY_PATH}
+export PATH=/usr/local/cuda/bin:${PATH}
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
