@@ -86,6 +86,7 @@ alias cb='cd ~/ros && catkin build && source devel/setup.zsh'
 
 # ROS
 source ~/ros/devel/setup.zsh
+export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
 
 # pipenv
 export WORKON_HOME=~/.venvs
@@ -143,3 +144,4 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 ### End of Zinit's installer chunk
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
