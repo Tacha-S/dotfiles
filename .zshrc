@@ -145,3 +145,14 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+fzf-switch-branch() {
+  local branches branch
+  branches=$(git branch --all | grep -v HEAD) &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+zle -N fzf-switch-branch
+bindkey "^b" fzf-switch-branch
+
