@@ -22,6 +22,7 @@
   push-f = push --force-with-lease
   clt = clone --recursive --template ~/.git_template
   clone = clone --recursive
+  current-branch-name = ! git branch | grep -e '^\\* ' | sed -e 's/^\\* //g'
   force-pull = !git fetch && git reset --hard origin/$(git current-branch-name)
 
 [core]
