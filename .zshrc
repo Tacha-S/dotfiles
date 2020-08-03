@@ -59,7 +59,7 @@ export LS_COLORS='no=00;38;5;252:rs=0:di=01;38;5;111:ln=01;38;5;113:mh=00:pi=48;
 # Completion
 
 autoload -Uz compinit; compinit
-fpath=(~/.zsh/completions ~/.zsh/functions/ $fpath)
+fpath=(~/.zsh/completions ~/.zsh/functions ${fpath})
 # complete after equal
 setopt magic_equal_subst
 # packed too many
@@ -102,6 +102,10 @@ fi
 ## CUDA and cuDNN paths
 export PATH=/usr/local/cuda/bin:${PATH}
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
+
+# git escape magic
+autoload -Uz git-escape-magic
+git-escape-magic
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
