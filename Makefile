@@ -5,6 +5,7 @@ DOTPATH    := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
 deploy:
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
+	@sudo cp -r fonts/* /usr/share/fonts/opentype
 
 init:
 	@sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
@@ -12,4 +13,3 @@ init:
 backup:
 	@yay -Qentq > pkglist
 	@yay -Qmq >> pkglist
-
