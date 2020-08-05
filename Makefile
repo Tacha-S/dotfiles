@@ -10,6 +10,9 @@ deploy:
 init:
 	@sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 
+ubuntu-setup:
+	@./ubuntu-setup.sh
+
 backup:
 	@yay -Qentq > pkglist
 	@yay -Qmq >> pkglist
