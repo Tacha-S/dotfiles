@@ -1,19 +1,30 @@
 [user]
-	name = Tatsuroh Sakaguchi
-	email = tacchan.mello.ioiq@gmail.com
+	name = Tatsuro Sakaguchi
+	email = tatsuro.sakaguchi@g.softbank.co.jp
 [push]
 	default = simple
+[pull]
+	ff = only
 [alias]
   alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/' | sort
   cho = checkout
+  sw = switch
   cm = commit -F-
+  ca = commit --amend
+  can = commit --amend --no-edit
   graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   pr = pull-request
   see = browse
-  refresh= !git pull origin && git remote prune origin && git clean-br
+  refresh= !git pull && git remote prune origin && git clean-br
   unstage = reset -q HEAD --
-  chopr = "!f(){ git fetch origin pull/$1/head:pull/$1 && git checkout pull/$1;};f"
+  chopr = "!f(){ if [ $# -ne 2 ]; then git fetch origin pull/$1/head:pull/$1 && git checkout pull/$1; else git fetch $1 pull/$2/head:pull/$2 && git checkout pull/$2;};f"
   clean-br = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|master'|xargs git branch -d; };f"
+  push-f = push --force-with-lease
+  clt = clone --recursive --template ~/.git_template
+  clone = clone --recursive
+  current-branch-name = ! git branch | grep -e '^\\* ' | sed -e 's/^\\* //g'
+  force-pull = !git fetch && git reset --hard origin/$(git current-branch-name)
 
 [core]
 	excludesfile = ~/.gitignore_global
+
