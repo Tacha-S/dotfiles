@@ -14,7 +14,7 @@ sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/v
 
 sudo apt update
 
-sudo apt install code git google-chrome-stable zsh make curl vim tmux solaar gnome-tweek-tool fcitx-mozc
+sudo apt install code git google-chrome-stable zsh make curl vim tmux solaar gnome-tweek-tool fcitx-mozc clang-format
 
 # install nvidia driver
 sudo ubuntu-drivers autoinstall
@@ -28,6 +28,8 @@ sudo apt-key add /var/cuda-repo-10-2-local-10.2.89-440.33.01/7fa2af80.pub
 sudo apt-get update
 sudo apt-get -y install cuda
 rm cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb
+
+
 
 # change default shell
 chsh ${USER} -s /usr/bin/zsh
@@ -103,6 +105,9 @@ sudo apt purge apport
 # -D INSTALL_C_EXAMPLES=OFF \
 # -D WITH_TBB=ON \
 # -D WITH_CUDA=ON \
+# -D WITH_CUDNN=ON \
+# -D OPENCV_DNN_CUDA=ON \
+# -D CUDA_ARCH_BIN=6.1 \
 # -D BUILD_opencv_cudacodec=OFF \
 # -D ENABLE_FAST_MATH=1 \
 # -D CUDA_FAST_MATH=1 \
@@ -115,6 +120,11 @@ sudo apt purge apport
 # -D OPENCV_PC_FILE_NAME=opencv.pc \
 # -D OPENCV_ENABLE_NONFREE=ON \
 # -D OPENCV_PYTHON3_INSTALL_PATH=~/.virtualenvs/cv/lib/python3.6/site-packages \
-# -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-4.2.0/modules \
+# -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-4.2.0/modules \
 # -D PYTHON_EXECUTABLE=~/.virtualenvs/cv/bin/python \
 # -D BUILD_EXAMPLES=ON ..
+# make -j8
+# sudo make install
+# cd ../../
+# rm opencv-4.2.0
+# rm opencv_contrib-4.2.0
