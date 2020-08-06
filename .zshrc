@@ -82,11 +82,11 @@ alias ll='ls -l --color=auto'
 alias la='ls -a --color=auto'
 alias grep='grep --color=auto'
 alias df='df -h'
-alias cb='cd ~/ros && catkin build && source devel/setup.zsh'
 
 # ROS
 source ~/ros/devel/setup.zsh
 export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
+alias cb='(){ if [ $# -ne 1 ]; then catkin build && source $(catkin locate)/devel/setup.zsh; else catkin build $1 && source $(catkin locate)/devel/setup.zsh; fi}'
 
 # pipenv
 export WORKON_HOME=~/.venvs
@@ -159,4 +159,3 @@ fzf-switch-branch() {
 
 zle -N fzf-switch-branch
 bindkey "^b" fzf-switch-branch
-
