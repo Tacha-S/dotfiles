@@ -1,5 +1,5 @@
 #!/bin/bash -eu
-sudo apt install software-properties-common apt-transport-https
+sudo apt install software-properties-common apt-transport-https curl ca-certificates
 
 # add git repo
 sudo add-apt-repository ppa:git-core/ppa
@@ -12,9 +12,16 @@ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable
 wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 
+# add docker repo
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository \
+     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+     $(lsb_release -cs) \
+     stable"
+
 sudo apt update
 
-sudo apt install code git google-chrome-stable zsh make curl vim tmux solaar gnome-tweek-tool fcitx-mozc clang-format
+sudo apt install code git google-chrome-stable docker-ce zsh make vim tmux solaar gnome-tweek-tool fcitx-mozc clang-format
 
 # install nvidia driver
 sudo ubuntu-drivers autoinstall
@@ -29,7 +36,19 @@ sudo apt-get update
 sudo apt-get -y install cuda
 rm cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb
 
+# cudnn
+# tar xvf cudnn-x.x-linux-x64-v7.6.5.tgr
+# sudo cp -a cuda/include/cudnn.h /usr/local/cuda/include/
+# sudo cp -a cuda/lib64/libcudnn* /usr/local/cuda/lib64/
+# sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
 
+# config docker
+sudo gpasswd -a ${USER} docker
+sudo chmod 666 /var/run/docker.sock
+
+# latest docker-compose install
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 
 # change default shell
 chsh ${USER} -s /usr/bin/zsh
