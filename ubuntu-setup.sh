@@ -107,13 +107,13 @@ sudo apt purge apport
 # sudo ln -s -f ../libv4l1-videodev.h videodev.h
 # cd ${HOME}
 
-# wget -O opencv.zip https://github.com/opencv/opencv/archive/4.2.0.zip
-# wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.2.0.zip
+# wget -O opencv.zip https://github.com/opencv/opencv/archive/3.4.11.zip
+# wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/3.4.11.zip
 # unzip opencv.zip
 # unzip opencv_contrib.zip
 
 
-# cd opencv-4.2.0
+# cd opencv-3.4.11
 # mkdir build
 # cd build
 
@@ -139,11 +139,13 @@ sudo apt purge apport
 # -D OPENCV_PC_FILE_NAME=opencv.pc \
 # -D OPENCV_ENABLE_NONFREE=ON \
 # -D OPENCV_PYTHON3_INSTALL_PATH=~/.virtualenvs/cv/lib/python3.6/site-packages \
-# -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-4.2.0/modules \
+# -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-3.4.11/modules \
 # -D PYTHON_EXECUTABLE=~/.virtualenvs/cv/bin/python \
 # -D BUILD_EXAMPLES=ON ..
 # make -j8
 # sudo make install
 # cd ../../
-# rm opencv-4.2.0
-# rm opencv_contrib-4.2.0
+# rm opencv-3.4.11
+# rm opencv_contrib-3.4.11
+# sudo /bin/bash -c 'echo "/usr/local/lib" >> /etc/ld.so.conf.d/opencv.conf'
+# sudo ldconfig
