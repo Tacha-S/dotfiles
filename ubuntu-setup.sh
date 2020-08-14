@@ -21,7 +21,7 @@ sudo add-apt-repository \
 
 sudo apt update
 
-sudo apt install code git google-chrome-stable docker-ce zsh make vim tmux solaar gnome-tweek-tool fcitx-mozc clang-format
+sudo apt install code git google-chrome-stable docker-ce zsh make vim tmux solaar gnome-tweek-tool fcitx-mozc clang-format clang-tidy-10
 
 # install nvidia driver
 sudo ubuntu-drivers autoinstall
