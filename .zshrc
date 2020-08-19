@@ -84,10 +84,11 @@ alias grep='grep --color=auto'
 alias df='df -h'
 
 # ROS
-source ~/ros/devel/setup.zsh
+export ROS_WS=~/ros
+source ${ROS_WS}/devel/setup.zsh
 export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
-alias cb='(){ if [ $# -ne 1 ]; then catkin build && source $(catkin locate)/devel/setup.zsh; else catkin build $1 && source $(catkin locate)/devel/setup.zsh; fi}'
-
+alias cs='source ${ROS_WS}/devel/setup.zsh'
+alias cba='catkin build -w ${ROS_WS} && cs'
 # pipenv
 export WORKON_HOME=~/.venvs
 eval "$(pipenv --completion)"
@@ -153,9 +154,57 @@ fzf-switch-branch() {
   local branches branch
   branches=$(git branch --all | grep -v HEAD) &&
   branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m)
+  BUFFER+="git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")"
+  zle accept-line
 }
-
 zle -N fzf-switch-branch
 bindkey "^b" fzf-switch-branch
+
+writecmd() {
+  perl -e '$TIOCSTI = 0x5412; $l = <STDIN>; $lc = $ARGV[0] eq "-run" ? "\n" : ""; $l =~ s/\s*$/$lc/; map { ioctl STDOUT, $TIOCSTI, $_; } split "", $l;' -- $1
+}
+rcd() {
+    local package
+    package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
+        roscd "$package"
+}
+rl() {
+    local package
+    package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
+        find $(catkin locate -w $ROS_WS "$package") -type f -name "*.launch" -printf "%f\n" | fzf-tmux --query="$1" -1 -0 |\
+        sed "s/^/roslaunch "$package" /" | writecmd
+}
+rb() {
+   find $FZF_ROSBAG_DIRS -type f -name "*.bag" | fzf-tmux --query="$1" -1 -0 |\
+        sed "s/^/\$FZF_ROSBAG_PLAY_COMMAND/" | writecmd
+}
+rr() {
+    local package
+    package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
+        find $(catkin locate -w $ROS_WS "$package") -type f -executable -printf "%f\n" | fzf-tmux --query="$1" -1 -0 |\
+        sed "s/^/rosrun "$package" /" | writecmd
+}
+rte() {
+    rostopic list > /dev/null &&
+        rostopic list | fzf-tmux --query="$1" -1 -0 |\
+        sed "s/^/rostopic echo /" | writecmd
+}
+
+rti() {
+    local topic
+    rostopic list > /dev/null &&
+        topic=$(rostopic list | fzf-tmux --query="$1" -1 -0) &&
+        rostopic info "$topic"
+}
+rni() {
+    local node
+    rostopic list > /dev/null
+        node=$(rosnode list | fzf-tmux --query="$1" -1 -0) &&
+        rosnode info "$node"
+}
+cb() {
+    local package
+    package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
+        catkin build -w $ROS_WS "$package" && cs
+}
