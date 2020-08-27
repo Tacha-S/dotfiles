@@ -10,7 +10,7 @@ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable
 
 # add vscode repo
 wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 
 # add docker repo
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -21,7 +21,7 @@ sudo add-apt-repository \
 
 sudo apt update
 
-sudo apt install code git google-chrome-stable docker-ce zsh make vim tmux solaar gnome-tweek-tool fcitx-mozc clang-format clang-tidy-10
+sudo apt install code git google-chrome-stable docker-ce zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc clang-format clang-tidy-10 guake
 
 # install nvidia driver
 sudo ubuntu-drivers autoinstall
@@ -87,65 +87,3 @@ sudo hwclock -D --systohc --localtime
 
 # purge packages
 sudo apt purge apport
-
-# build opencv 4.2
-# sudo apt install build-essential cmake pkg-config unzip yasm git checkinstall \
-#                  libjpeg-dev libpng-dev libtiff-dev \
-#                  libavcodec-dev libavformat-dev libswscale-dev libavresample-dev \
-#                  libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev \
-#                  libxvidcore-dev x264 libx264-dev libfaac-dev libmp3lame-dev libtheora-dev \
-#                  libfaac-dev libmp3lame-dev libvorbis-dev \
-#                  libopencore-amrnb-dev libopencore-amrwb-dev \
-#                  libdc1394-22 libdc1394-22-dev libxine2-dev libv4l-dev v4l-utils \
-#                  libgtk-3-dev \
-#                  libtbb-dev \
-#                  libatlas-base-dev gfortran \
-#                  libprotobuf-dev protobuf-compiler \
-#                  libgoogle-glog-dev libgflags-dev \
-#                  libgphoto2-dev libeigen3-dev libhdf5-dev doxygen
-# cd /usr/include/linux
-# sudo ln -s -f ../libv4l1-videodev.h videodev.h
-# cd ${HOME}
-
-# wget -O opencv.zip https://github.com/opencv/opencv/archive/3.4.11.zip
-# wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/3.4.11.zip
-# unzip opencv.zip
-# unzip opencv_contrib.zip
-
-
-# cd opencv-3.4.11
-# mkdir build
-# cd build
-
-# cmake -D CMAKE_BUILD_TYPE=RELEASE \
-# 	-D CMAKE_C_COMPILER=/usr/bin/gcc-7 \
-# -D CMAKE_INSTALL_PREFIX=/usr/local \
-# -D INSTALL_PYTHON_EXAMPLES=ON \
-# -D INSTALL_C_EXAMPLES=OFF \
-# -D WITH_TBB=ON \
-# -D WITH_CUDA=ON \
-# -D WITH_CUDNN=ON \
-# -D OPENCV_DNN_CUDA=ON \
-# -D CUDA_ARCH_BIN=6.1 \
-# -D BUILD_opencv_cudacodec=OFF \
-# -D ENABLE_FAST_MATH=1 \
-# -D CUDA_FAST_MATH=1 \
-# -D WITH_CUBLAS=1 \
-# -D WITH_V4L=ON \
-# -D WITH_QT=OFF \
-# -D WITH_OPENGL=ON \
-# -D WITH_GSTREAMER=ON \
-# -D OPENCV_GENERATE_PKGCONFIG=ON \
-# -D OPENCV_PC_FILE_NAME=opencv.pc \
-# -D OPENCV_ENABLE_NONFREE=ON \
-# -D OPENCV_PYTHON3_INSTALL_PATH=~/.virtualenvs/cv/lib/python3.6/site-packages \
-# -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-3.4.11/modules \
-# -D PYTHON_EXECUTABLE=~/.virtualenvs/cv/bin/python \
-# -D BUILD_EXAMPLES=ON ..
-# make -j8
-# sudo make install
-# cd ../../
-# rm opencv-3.4.11
-# rm opencv_contrib-3.4.11
-# sudo /bin/bash -c 'echo "/usr/local/lib" >> /etc/ld.so.conf.d/opencv.conf'
-# sudo ldconfig
