@@ -131,6 +131,8 @@ zinit light-mode for \
 zinit light zsh-users/zsh-syntax-highlighting
 zinit ice as"program" pick"tmuximum"
 zinit light arks22/tmuximum
+zinit ice as"program" mv"zemojify -> emojify"
+zinit light filipekiss/zemojify
 
 # color theme config
 POWERLEVEL9K_MODE='awesome-fontconfig'
