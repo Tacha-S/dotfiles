@@ -192,18 +192,20 @@ rte() {
         rostopic list | fzf-tmux --query="$1" -1 -0 |\
         sed "s/^/rostopic echo /" | writecmd
 }
-
-rti() {
-    local topic
+rth() {
     rostopic list > /dev/null &&
-        topic=$(rostopic list | fzf-tmux --query="$1" -1 -0) &&
-        rostopic info "$topic"
+        rostopic list | fzf-tmux --query="$1" -1 -0 |\
+        sed "s/^/rostopic hz /" | writecmd
+}
+rti() {
+    rostopic list > /dev/null &&
+        rostopic list | fzf-tmux --query="$1" -1 -0 |\
+        sed "s/^/rostopic info /" | writecmd
 }
 rni() {
-    local node
-    rostopic list > /dev/null
-        node=$(rosnode list | fzf-tmux --query="$1" -1 -0) &&
-        rosnode info "$node"
+    rostopic list > /dev/null &&
+        rosnode list | fzf-tmux --query="$1" -1 -0 |\
+        sed "s/^/rosnode info /" | writecmd
 }
 cb() {
     local package
