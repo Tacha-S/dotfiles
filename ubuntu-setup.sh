@@ -41,10 +41,10 @@ sudo apt-get -y install cuda
 rm cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb
 
 # cudnn
-# tar xvf cudnn-x.x-linux-x64-v7.6.5.tgr
-# sudo cp -a cuda/include/cudnn.h /usr/local/cuda/include/
-# sudo cp -a cuda/lib64/libcudnn* /usr/local/cuda/lib64/
-# sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
+wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
+sudo apt install ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
+sudo apt update
+sudo apt install libcudnn8 libcudnn8-dev
 
 # config docker
 sudo gpasswd -a ${USER} docker
