@@ -4,6 +4,10 @@ sudo apt install software-properties-common apt-transport-https curl ca-certific
 # add git repo
 sudo add-apt-repository ppa:git-core/ppa
 
+# add latest cmake repo
+wget -qO - https://apt.kitware.com/keys/kitware-archive-latest.asc | sudo apt-key add -
+sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main'
+
 # add chrome repo
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
@@ -21,7 +25,7 @@ sudo add-apt-repository \
 
 sudo apt update
 
-sudo apt install code git google-chrome-stable docker-ce zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc clang-format clang-tidy-10 guake global
+sudo apt install cmake code git google-chrome-stable docker-ce zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc clang-format clang-tidy-10 guake global
 
 # install nvidia driver
 sudo ubuntu-drivers autoinstall
