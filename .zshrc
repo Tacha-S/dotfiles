@@ -156,8 +156,9 @@ zle -N fzf-switch-branch
 bindkey "^b" fzf-switch-branch
 
 writecmd() {
-   perl -e 'ioctl STDOUT, 0x5412, $_ for split //, do{ chomp($_ = <>); $_ }' ;
+  perl -e 'ioctl STDOUT, 0x5412, $_ for split //, do{ chomp($_ = <>); $_ }' ;
 }
+
 rcd() {
     local package
     package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
@@ -181,8 +182,9 @@ rr() {
 }
 rte() {
     rostopic list > /dev/null &&
-        rostopic list | fzf-tmux --query="$1" -1 -0 |\
-        sed "s/^/rostopic echo /" | writecmd
+        cmd=$(rostopic list | fzf-tmux --query="$1" -1 -0 |\
+        sed "s/^/rostopic echo /")
+    writecmd $cmd
 }
 rth() {
     rostopic list > /dev/null &&
@@ -204,4 +206,14 @@ cb() {
     package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
         catkin build -w $ROS_WS "$package" && cs
 }
+export AKU_FRONT_IP=192.168.13.103
+export AKU_REAR_IP=192.168.13.104
+source /opt/ros/melodic/setup.zsh
+export DISPLAY=:0.0
+source ~/ros/devel/setup.zsh
+export LIBGL_ALWAYS_SOFTWARE=1
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
+export PATH=$PATH:~/.local/bin
+export SPEAKER=true
+export BUTTON=true
 
