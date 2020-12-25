@@ -137,21 +137,10 @@ zinit light arks22/tmuximum
 zinit ice as"program" mv"zemojify -> emojify"
 zinit light filipekiss/zemojify
 
-# color theme config
-POWERLEVEL9K_MODE='awesome-fontconfig'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv docker_machine time)
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_HIDE_BRANCH_ICON=true
-POWERLEVEL9K_VCS_GIT_ICON='\uF09B'
-POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\uF09B'
-local user_symbol="$"
-    if [[ $(print -P "%#") =~ "#" ]]; then
-        user_symbol = "#"
-    fi
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%{%B%F{yellow}%K{blue}%} $user_symbol%{%b%f%k%F{blue}%} %{%f%}"
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 ### End of Zinit's installer chunk
+
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -167,7 +156,7 @@ zle -N fzf-switch-branch
 bindkey "^b" fzf-switch-branch
 
 writecmd() {
-  perl -e '$TIOCSTI = 0x5412; $l = <STDIN>; $lc = $ARGV[0] eq "-run" ? "\n" : ""; $l =~ s/\s*$/$lc/; map { ioctl STDOUT, $TIOCSTI, $_; } split "", $l;' -- $1
+   perl -e 'ioctl STDOUT, 0x5412, $_ for split //, do{ chomp($_ = <>); $_ }' ;
 }
 rcd() {
     local package
@@ -215,3 +204,4 @@ cb() {
     package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
         catkin build -w $ROS_WS "$package" && cs
 }
+
