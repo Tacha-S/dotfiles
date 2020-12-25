@@ -89,8 +89,12 @@ source ${ROS_WS}/devel/setup.zsh
 export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
 alias cs='source ${ROS_WS}/devel/setup.zsh'
 alias cba='catkin build -w ${ROS_WS} && cs'
+
+export PATH=$PATH:~/.local/bin
+
 # pipenv
 export WORKON_HOME=~/.venvs
+export PIPENV_VENV_IN_PROJECT=1
 eval "$(pipenv --completion)"
 
 # pyenv
@@ -213,7 +217,5 @@ export DISPLAY=:0.0
 source ~/ros/devel/setup.zsh
 export LIBGL_ALWAYS_SOFTWARE=1
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
-export PATH=$PATH:~/.local/bin
 export SPEAKER=true
 export BUTTON=true
-

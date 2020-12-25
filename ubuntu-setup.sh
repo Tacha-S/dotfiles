@@ -46,6 +46,13 @@ sudo apt install ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
 sudo apt update
 sudo apt install libcudnn8 libcudnn8-dev
 
+# install pyenv
+sudo apt install -y build-essential libffi-dev libssl-dev zlib1g-dev liblzma-dev libbz2-dev libreadline-dev libsqlite3-dev
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+
+# install pipenv
+pip install pipenv
+
 # config docker
 sudo gpasswd -a ${USER} docker
 sudo chmod 666 /var/run/docker.sock
