@@ -5,8 +5,8 @@ sudo apt install software-properties-common apt-transport-https curl ca-certific
 sudo add-apt-repository ppa:git-core/ppa
 
 # add latest cmake repo
-wget -qO - https://apt.kitware.com/keys/kitware-archive-latest.asc | sudo apt-key add -
-sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main'
+# wget -qO - https://apt.kitware.com/keys/kitware-archive-latest.asc | sudo apt-key add -
+# sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main'
 
 # add chrome repo
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
