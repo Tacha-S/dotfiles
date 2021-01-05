@@ -89,6 +89,7 @@ source ${ROS_WS}/devel/setup.zsh
 export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
 alias cs='source ${ROS_WS}/devel/setup.zsh'
 alias cba='catkin build -w ${ROS_WS} && cs'
+alias rdi='rosdep install --from-paths ${ROS_WS}/src -yir --rosdistro=${ROS_DISTRO}'
 
 export PATH=$PATH:~/.local/bin
 
