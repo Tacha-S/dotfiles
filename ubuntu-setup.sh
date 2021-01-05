@@ -29,7 +29,7 @@ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.li
 
 sudo apt update
 
-sudo apt install ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc clang-format clang-tidy-10 guake global
+sudo apt install ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc clang-format clang-tidy-10 guake global python-pip
 
 # install cuda 10.2
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
