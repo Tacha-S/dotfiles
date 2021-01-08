@@ -2,7 +2,7 @@
 sudo apt install software-properties-common apt-transport-https curl ca-certificates
 
 # add git repo
-sudo add-apt-repository ppa:git-core/ppa
+sudo add-apt-repository -y ppa:git-core/ppa
 
 # add latest cmake repo
 # wget -qO - https://apt.kitware.com/keys/kitware-archive-latest.asc | sudo apt-key add -
@@ -29,7 +29,7 @@ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.li
 
 sudo apt update
 
-sudo apt install ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc clang-format clang-tidy-10 guake global python-pip htop
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc clang-format clang-tidy-10 guake global python-pip htop
 
 # install cuda 10.2
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
@@ -43,9 +43,9 @@ rm cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb
 
 # cudnn
 wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
-sudo apt install ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
+sudo apt install -y ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
 sudo apt update
-sudo apt install libcudnn7 libcudnn7-dev
+sudo apt install -y libcudnn7 libcudnn7-dev
 
 # install pyenv
 sudo apt install -y build-essential libffi-dev libssl-dev zlib1g-dev liblzma-dev libbz2-dev libreadline-dev libsqlite3-dev
@@ -101,7 +101,7 @@ rm gitkraken-amd64.deb
 
 # install slack
 wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.8.0-amd64.deb
-sudo apt install ./slack-desktop-4.8.0-amd64.deb
+sudo apt install -y ./slack-desktop-4.8.0-amd64.deb
 rm slack-desktop-4.8.0-amd64.deb
 
 # install IDE
