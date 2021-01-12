@@ -57,7 +57,7 @@ pip install pipenv
 # config docker
 sudo gpasswd -a ${USER} docker
 sudo chmod 666 /var/run/docker.sock
-cat <<EOF > /etc/docker/daemon.json
+cat <<EOF | sudo tee /etc/docker/daemon.json
 {
   "runtimes": {
     "nvidia": {
@@ -67,6 +67,7 @@ cat <<EOF > /etc/docker/daemon.json
   }
 }
 EOF
+sudo systemctl restart docker
 
 # latest docker-compose install
 sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
