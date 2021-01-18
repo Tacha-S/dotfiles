@@ -1,10 +1,10 @@
 [user]
-	name = Tatsuro Sakaguchi
-	email = tatsuro.sakaguchi@g.softbank.co.jp
+  name = Tatsuro Sakaguchi
+  email = tatsuro.sakaguchi@g.softbank.co.jp
 [push]
-	default = simple
+  default = simple
 [pull]
-	ff = only
+  ff = only
 [alias]
   alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/' | sort
   cho = checkout
@@ -21,10 +21,20 @@
   clean-br = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|master'|xargs git branch -d; };f"
   push-f = push --force-with-lease
   clt = clone --recursive --template ~/.git_template
-  clone = clone --recursive
   current-branch-name = ! git branch | grep -e '^\\* ' | sed -e 's/^\\* //g'
   force-pull = !git fetch && git reset --hard origin/$(git current-branch-name)
 
 [core]
-	excludesfile = ~/.gitignore_global
+  excludesfile = ~/.gitignore_global
 
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+[submodule]
+  recurse = true
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
