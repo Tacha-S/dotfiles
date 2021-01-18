@@ -29,7 +29,7 @@ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.li
 
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc clang-format clang-tidy-10 guake global python-pip htop
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc clang-format clang-tidy-10 guake global python-pip htop cifs-utils autofs
 
 # install cuda 10.2
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
@@ -75,6 +75,11 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 # change default shell
 chsh ${USER} -s /usr/bin/zsh
+
+# NAS config
+sudo sh -c 'echo "/nas -fstype=cifs,rw,username=admin,password=gisen55,uid=1000,gid=1000 ://192.168.12.44/Public" > /etc/auto.nas'
+sudo sed -i -e "s:^+auto.master$:#+auto.master\n/- /etc/auto.nas --timeout 60:g" /etc/auto.master
+sudo service autofs restart
 
 # register ssh key to github
 ssh-keygen -f ${HOME}/.ssh/id_rsa -t rsa -N ''
