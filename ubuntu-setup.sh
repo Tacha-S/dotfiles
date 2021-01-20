@@ -110,10 +110,6 @@ wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.8.0-amd64.d
 sudo apt install -y ./slack-desktop-4.8.0-amd64.deb
 rm slack-desktop-4.8.0-amd64.deb
 
-# install IDE
-sudo snap install clion --classic
-sudo snap install pycharm-professional --classic
-
 # fix clock
 sudo hwclock -D --systohc --localtime
 
