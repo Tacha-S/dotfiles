@@ -59,6 +59,7 @@ sudo gpasswd -a ${USER} docker
 sudo chmod 666 /var/run/docker.sock
 cat <<EOF | sudo tee /etc/docker/daemon.json
 {
+  "default-runtime": "nvidia",
   "runtimes": {
     "nvidia": {
       "path": "nvidia-container-runtime",
