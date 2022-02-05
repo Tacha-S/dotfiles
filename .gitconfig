@@ -20,12 +20,13 @@
   chopr = "!f(){ if [ $# -ne 2 ]; then git fetch origin pull/$1/head:pull/$1 && git checkout pull/$1; else git fetch $1 pull/$2/head:pull/$2 && git checkout pull/$2; fi;};f"
   clean-br = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|master'|xargs git branch -d; };f"
   push-f = push --force-with-lease
-  clt = clone --recursive --template ~/.git_template
+  clone = clone --recursive
   current-branch-name = ! git branch | grep -e '^\\* ' | sed -e 's/^\\* //g'
   force-pull = !git fetch && git reset --hard origin/$(git current-branch-name)
 
 [core]
   excludesfile = ~/.gitignore_global
+	hooksPath = ~/.git_template/hooks
 
 [filter "lfs"]
   clean = git-lfs clean -- %f
@@ -38,3 +39,10 @@
 [credential "https://github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
+[init]
+  templatedir = ~/.git_template
+[diff]
+	tool = vscode
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+
