@@ -15,14 +15,13 @@
   graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   pr = pull-request
   see = browse
-  refresh= !git pull && git remote prune origin && git clean-br
+  refresh= !git pull && git remote | xargs git remote prune && git clean-br
   unstage = reset -q HEAD --
-  chopr = "!f(){ if [ $# -ne 2 ]; then git fetch origin pull/$1/head:pull/$1 && git checkout pull/$1; else git fetch $1 pull/$2/head:pull/$2 && git checkout pull/$2; fi;};f"
   clean-br = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|master'|xargs git branch -d; };f"
   push-f = push --force-with-lease
   clone = clone --recursive
-  current-branch-name = ! git branch | grep -e '^\\* ' | sed -e 's/^\\* //g'
-  force-pull = !git fetch && git reset --hard origin/$(git current-branch-name)
+  current-track-branch = ! git branch -vv | grep -e '^\\* ' | sed -e 's/^.*\\[\\(.*\\)\\].*$/\\1/'
+  force-pull = !git fetch --all && git stash -u && git reset --hard $(git current-track-branch)
 
 [core]
   excludesfile = ~/.gitignore_global
@@ -45,4 +44,3 @@
 	tool = vscode
 [difftool "vscode"]
 	cmd = code --wait --diff $LOCAL $REMOTE
-
