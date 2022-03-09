@@ -86,8 +86,9 @@ alias df='df -h'
 # ROS
 export ROS_WS=~/ros
 source ${ROS_WS}/devel/setup.zsh
+source `catkin locate --shell-verbs`
 export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
-alias cs='source ${ROS_WS}/devel/setup.zsh'
+alias cs='catkin source'
 alias cba='catkin build -w ${ROS_WS} && cs'
 alias cca='catkin clean -w ${ROS_WS}'
 alias rdi='rosdep install --from-paths ${ROS_WS}/src -yir --rosdistro=${ROS_DISTRO}'
@@ -219,4 +220,3 @@ cc() {
 }
 
 export LIBDYNAMIXEL=/usr/local
-
