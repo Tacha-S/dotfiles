@@ -33,7 +33,7 @@ sudo add-apt-repository -y "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-too
 
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc clang-format clangd-13 guake global python-pip python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc clang-format clangd-13 guake global python-pip python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome
 
 # config github-cli
 gh completion -s zsh > _gh
@@ -101,7 +101,7 @@ gh repo clone dotfiles
 cd dotfiles
 make init
 make deploy
-dconf write /org/gnome/shell/favorite-apps "['google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'code.desktop', 'gitkraken.desktop']"
+dconf write /org/gnome/shell/favorite-apps "['google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'code.desktop', 'gitkraken_gitkraken.desktop']"
 dconf load /apps/guake/ < guake.conf
 
 # install neobundle
@@ -113,14 +113,10 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
 # install gitkraken
-wget https://release.gitkraken.com/linux/gitkraken-amd64.deb
-sudo dpkg -i gitkraken-amd64.deb
-rm gitkraken-amd64.deb
+sudo snap install gitkraken --classic
 
 # install slack
-wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.8.0-amd64.deb
-sudo apt install -y ./slack-desktop-4.8.0-amd64.deb
-rm slack-desktop-4.8.0-amd64.deb
+sudo snap install slack --classic
 
 # fix clock
 sudo hwclock -D --systohc --localtime

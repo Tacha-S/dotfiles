@@ -1,10 +1,11 @@
 [Desktop Entry]
+X-SnapInstanceName=slack
 Name=Slack
 StartupWMClass=Slack
 Comment=Slack Desktop
 GenericName=Slack Client for Linux
-Exec=/usr/bin/slack %U
-Icon=/usr/share/pixmaps/slack.png
+Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/slack_slack.desktop /snap/bin/slack %U
+Icon=/snap/slack/49/usr/share/pixmaps/slack.png
 Type=Application
 StartupNotify=true
 Categories=GNOME;GTK;Network;InstantMessaging;
