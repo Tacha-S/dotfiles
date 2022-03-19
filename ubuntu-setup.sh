@@ -63,7 +63,7 @@ rm nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
 
 # install pyenv
 sudo apt install -y build-essential libffi-dev libssl-dev zlib1g-dev liblzma-dev libbz2-dev libreadline-dev libsqlite3-dev
-git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+gh repo clone pyenv/pyenv ~/.pyenv
 
 # install pipenv
 pip2 install pipenv
@@ -106,10 +106,10 @@ dconf load /apps/guake/ < guake.conf
 
 # install neobundle
 mkdir -p ~/.vim/bundle
-git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+gh repo clone Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 
 # install fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+gh repo clone junegunn/fzf ~/.fzf -- --depth 1
 ~/.fzf/install
 
 # install gitkraken
