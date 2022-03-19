@@ -33,7 +33,7 @@ sudo add-apt-repository -y "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-too
 
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc clang-format clangd-13 guake global python-pip python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-13 guake global python-pip python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome
 
 # config github-cli
 gh completion -s zsh > _gh
@@ -126,6 +126,8 @@ sudo apt purge apport
 
 # enable fcitx
 im-config -n fcitx
+fcitx &
+fcitx-imlist -e mozc
 
 sudo apt purge libomp-10-dev libomp5-10
 
