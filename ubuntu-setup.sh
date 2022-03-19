@@ -104,6 +104,13 @@ make deploy
 dconf write /org/gnome/shell/favorite-apps "['google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'code.desktop', 'gitkraken_gitkraken.desktop']"
 dconf load /apps/guake/ < guake.conf
 
+# GUI settings
+gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 28
+gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Noto Sans CJK JP Bold 12'
+gsettings set org.gnome.desktop.interface font-name 'Noto Sans CJK JP 11'
+gsettings set org.gnome.desktop.interface document-font-name 'Noto Sans CJK JP 11'
+gsettings set org.gnome.desktop.interface monospace-font-name 'SauceCodePro NF Medium 15'
+
 # install neobundle
 mkdir -p ~/.vim/bundle
 gh repo clone Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
