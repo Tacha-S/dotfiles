@@ -98,7 +98,7 @@ export PATH=$PATH:~/.local/bin
 # pipenv
 export WORKON_HOME=~/.venvs
 export PIPENV_VENV_IN_PROJECT=1
-eval "$(pipenv --completion)"
+eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
 
 # pyenv
 export PYENV_ROOT="${HOME}/.pyenv"

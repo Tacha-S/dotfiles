@@ -66,7 +66,7 @@ sudo apt install -y build-essential libffi-dev libssl-dev zlib1g-dev liblzma-dev
 gh repo clone pyenv/pyenv ~/.pyenv
 
 # install pipenv
-pip2 install pipenv
+pip3 install pipenv
 
 # install python-package
 pip2 install flake8 pep8-naming flake8-coding flake8-copyright flake8-docstrings flake8-isort flake8-quotes
