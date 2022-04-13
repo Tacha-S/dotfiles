@@ -150,6 +150,7 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 function prompt_ros() {
   if [[ -z "$ROS_MASTER_URI" ]]; then
+  else
     host=`echo $ROS_MASTER_URI | sed -e 's|^[^/]*//||' -e 's|:.*$||'`
     if [ $host != "localhost" ]; then
       p10k segment -f red -i '⚙' -t "$host"
