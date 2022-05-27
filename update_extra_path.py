@@ -8,14 +8,17 @@ import re
 
 srcs = pathlib.Path('src')
 my_extra_paths = []
+for repo_file in srcs.glob('**/.git'):
+    if (repo_file.parent / 'CATKIN_IGNORE').exists():
+        continue
+    config = repo_file.parent / 'setup.cfg'
+    if not config.exists():
+        config.symlink_to(pathlib.Path.home() / 'work/.github/setup.cfg')
 for setup_file in srcs.glob('**/setup.py'):
     if '.venv' in str(setup_file):
         continue
     if (setup_file.parent / 'CATKIN_IGNORE').exists():
         continue
-    config = setup_file.parent / 'setup.cfg'
-    if not config.exists():
-        config.symlink_to(pathlib.Path.home() / 'work/.github/setup.cfg')
     with open(setup_file, 'r') as f:
         for line in f:
             if 'package_dir' in line:
