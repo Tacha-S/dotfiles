@@ -87,6 +87,7 @@ alias df='df -h'
 export ROS_WS=~/ros
 source ${ROS_WS}/devel/setup.zsh
 source `catkin locate --shell-verbs`
+source /usr/share/vcstool-completion/vcs.zsh
 export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
 alias cs='catkin source'
 alias cba='catkin build -w ${ROS_WS} && cs'
