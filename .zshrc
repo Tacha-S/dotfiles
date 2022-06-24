@@ -83,7 +83,7 @@ alias la='ls -a --color=auto'
 alias grep='grep --color=auto'
 alias df='df -h'
 function depends() {
-  command apt-cache depends --recurse --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances $1 | grep "^\w" | sort -u
+  command apt-rdepends -p --follow=Depends,PreDepends,Recommends --show=Depends,PreDepends,Recommends $1 | grep "^\w" | sort -u
 }
 
 
