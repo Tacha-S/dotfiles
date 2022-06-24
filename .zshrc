@@ -82,6 +82,10 @@ alias ll='ls -l --color=auto'
 alias la='ls -a --color=auto'
 alias grep='grep --color=auto'
 alias df='df -h'
+function depends() {
+  command apt-cache depends --recurse --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances $1 | grep "^\w" | sort -u
+}
+
 
 # ROS
 export ROS_WS=~/ros
