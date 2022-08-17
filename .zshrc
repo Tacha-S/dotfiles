@@ -93,6 +93,9 @@ source ${ROS_WS}/devel/setup.zsh
 source `catkin locate --shell-verbs`
 source /usr/share/vcstool-completion/vcs.zsh
 export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
+export ROS_MASTER_URI=http://192.168.13.2:11311
+export ROS_IP=192.168.13.2
+export ROS_HOSTNAME=192.168.13.2
 alias cs='catkin source'
 alias cba='catkin build -w ${ROS_WS} && cs'
 alias cca='catkin clean -w ${ROS_WS}'
@@ -233,5 +236,18 @@ cc() {
     package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
         catkin clean -w $ROS_WS "$package" && cs
 }
+
+export AKU_FRONT_IP=192.168.13.103
+export AKU_REAR_IP=192.168.13.104
+export FRONT_LIDAR_IP=192.168.13.4
+export REAR_LIDAR_IP=192.168.13.5
+source /opt/ros/melodic/setup.zsh
+export DISPLAY=:0.0
+source ~/ros/devel/setup.zsh
+export LIBGL_ALWAYS_SOFTWARE=1
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
+export SPEAKER=true
+export BUTTON=true
+export MIC=true
 
 export LIBDYNAMIXEL=/usr/local

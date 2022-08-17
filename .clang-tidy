@@ -8,6 +8,8 @@ Checks: "-*,
   performance-*,
   readability-*,
   -readability-magic-numbers,
+  -readability-function-cognitive-complexity,
+  -readability-implicit-bool-conversion
   "
 HeaderFilterRegex: ""
 AnalyzeTemporaryDtors: false
