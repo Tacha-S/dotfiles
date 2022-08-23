@@ -9,8 +9,7 @@ deploy:
 	@ln -sfnv $(abspath autostart) $(HOME)/.config/
 
 init:
-	@sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+	@bash -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
 
 ubuntu-setup:
 	@./ubuntu-setup.sh
-
