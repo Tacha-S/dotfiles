@@ -88,22 +88,29 @@ function depends() {
 
 
 # ROS
-export ROS_WS=~/ros
-source ${ROS_WS}/devel/setup.zsh
-source `catkin locate --shell-verbs`
-source /usr/share/vcstool-completion/vcs.zsh
-export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
-alias cs='catkin source'
-alias cba='catkin build -w ${ROS_WS} && cs'
-alias cca='catkin clean -w ${ROS_WS}'
-alias rdi='rosdep install --from-paths ${ROS_WS}/src -yir --rosdistro=${ROS_DISTRO}'
+if [ -v ROS_DISTRO ]; then
+  source /opt/ros/${ROS_DISTRO}/setup.zsh
+  eval "$(register-python-argcomplete3 ros2)"
+  eval "$(register-python-argcomplete3 colcon)"
+  export ROS_WS=~/ros
+  source ${ROS_WS}/devel/setup.zsh
+  source `catkin locate --shell-verbs`
+  source /usr/share/vcstool-completion/vcs.zsh
+  export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
+  alias cs='catkin source'
+  alias cba='catkin build -w ${ROS_WS} && cs'
+  alias cca='catkin clean -w ${ROS_WS}'
+  alias rdi='rosdep install --from-paths ${ROS_WS}/src -yir --rosdistro=${ROS_DISTRO}'
+fi
 
 export PATH=$PATH:~/.local/bin
 
 # pipenv
-export WORKON_HOME=~/.venvs
-export PIPENV_VENV_IN_PROJECT=1
-eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
+if type pipenv >/dev/null 2>&1; then
+  export WORKON_HOME=~/.venvs
+  export PIPENV_VENV_IN_PROJECT=1
+  eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
+fi
 
 # pyenv
 export PYENV_ROOT="${HOME}/.pyenv"
@@ -139,9 +146,10 @@ autoload -Uz _zinit
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
-    zdharma-continuum/z-a-patch-dl \
-    zdharma-continuum/z-a-as-monitor \
-    zdharma-continuum/z-a-bin-gem-node
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
 
 zinit light zsh-users/zsh-syntax-highlighting
 zinit ice as"program" pick"tmuximum"
@@ -235,4 +243,4 @@ cc() {
 }
 
 export LIBDYNAMIXEL=/usr/local
-### End of Zinit's installer chunk
+export SPEAKER=true
