@@ -14,7 +14,7 @@ cmake-build-debug/
 .DS_Store
 
 # vscode
-*/.vscode/*
+.vscode
 
 # config
 setup.cfg

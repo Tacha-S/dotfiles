@@ -24,8 +24,7 @@
   force-pull = !git fetch --all && git stash -u && git reset --hard $(git current-track-branch)
 
 [core]
-  excludesfile = ~/.gitignore_global
-	hooksPath = ~/.git_template/hooks
+  hooksPath = ~/.git_template/hooks
 
 [filter "lfs"]
   clean = git-lfs clean -- %f

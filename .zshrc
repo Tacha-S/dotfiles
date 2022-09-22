@@ -88,20 +88,18 @@ function depends() {
 
 
 # ROS
-if [ -v ROS_DISTRO ]; then
-  source /opt/ros/${ROS_DISTRO}/setup.zsh
-  eval "$(register-python-argcomplete3 ros2)"
-  eval "$(register-python-argcomplete3 colcon)"
-  export ROS_WS=~/ros
-  source ${ROS_WS}/devel/setup.zsh
-  source `catkin locate --shell-verbs`
-  source /usr/share/vcstool-completion/vcs.zsh
-  export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
-  alias cs='catkin source'
-  alias cba='catkin build -w ${ROS_WS} && cs'
-  alias cca='catkin clean -w ${ROS_WS}'
-  alias rdi='rosdep install --from-paths ${ROS_WS}/src -yir --rosdistro=${ROS_DISTRO}'
-fi
+source /opt/ros/${ROS_DISTRO}/setup.zsh
+eval "$(register-python-argcomplete3 ros2)"
+eval "$(register-python-argcomplete3 colcon)"
+export ROS_WS=~/ros
+source ${ROS_WS}/devel/setup.zsh
+source `catkin locate --shell-verbs`
+source /usr/share/vcstool-completion/vcs.zsh
+export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
+alias cs='catkin source'
+alias cba='catkin build -w ${ROS_WS} && cs'
+alias cca='catkin clean -w ${ROS_WS}'
+alias rdi='rosdep install --from-paths ${ROS_WS}/src -yir --rosdistro=${ROS_DISTRO}'
 
 export PATH=$PATH:~/.local/bin
 
