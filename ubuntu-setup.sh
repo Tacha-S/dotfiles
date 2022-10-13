@@ -41,7 +41,7 @@ gh completion -s zsh > _gh
 sudo mv _gh /usr/local/share/zsh/site-functions
 sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret/
 git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
-gh auth login -w -s write:public_key
+gh auth login -w -s write:public_key -s write:gpg_key
 ssh-keygen -f ${HOME}/.ssh/id_rsa -t rsa -N ''
 gh ssh-key add ~/.ssh/id_rsa.pub
 gh auth setup-git
@@ -92,6 +92,14 @@ make init
 make deploy
 dconf write /org/gnome/shell/favorite-apps "['google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'code.desktop', 'gitkraken_gitkraken.desktop']"
 dconf load /apps/guake/ < guake.conf
+
+# gpg key config
+gpg --gen-key
+gpg -a --export "tatsuro.sakaguchi@g.softbank.co.jp" > ~/.gnupg/pubkey.gpg
+(echo trust &echo 5 &echo y &echo quit) | gpg --command-fd 0 --edit-key "tatsuro.sakaguchi@g.softbank.co.jp"
+gh gpg-key add ~/.gnupg/pubkey.gpg
+id=`gpg --list-keys tatsuro.sakaguchi@g.softbank.co.jp | head -2 | tail -1 | tr -d ' '`
+git config --global user.signingkey ${id}
 
 # GUI settings
 gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 28
