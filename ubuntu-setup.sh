@@ -28,13 +28,15 @@ curl -s -L https://nvidia.github.io/libnvidia-container/$distribution/libnvidia-
   sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
   sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list > /dev/null
 
-# add clangd 13 repo
-wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
-sudo add-apt-repository -y "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-13 main"
+# add clangd 15 repo
+curl -fsSL https://apt.llvm.org/llvm-snapshot.gpg.key | gpg --dearmor | sudo tee /usr/share/keyrings/llvm-snapshot.gpg > /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/llvm-snapshot.gpg] http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-15 main" | sudo tee /etc/apt/sources.list.d/llvm.list > /dev/null
 
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-13 guake global python-pip python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-15 guake global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends
+
+sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-15 1
 
 # config github-cli
 gh completion -s zsh > _gh
@@ -46,12 +48,12 @@ ssh-keygen -f ${HOME}/.ssh/id_rsa -t rsa -N ''
 gh ssh-key add ~/.ssh/id_rsa.pub
 gh auth setup-git
 
-# install cuda 10.2
+# install cuda 11.3
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-keyring_1.0-1_all.deb
 sudo dpkg -i cuda-keyring_1.0-1_all.deb
 sudo apt-get update
-sudo apt-get -y install cuda-10-2 libcudnn8 libcudnn8-dev
-sudo apt-mark hold cuda-10-2
+sudo apt-get -y install cuda-11-3 libcudnn8 libcudnn8-dev
+sudo apt-mark hold cuda-11-3
 rm cuda-keyring_1.0-1_all.deb
 
 # install pyenv
@@ -62,8 +64,7 @@ gh repo clone pyenv/pyenv ~/.pyenv
 pip3 install pipenv
 
 # install python-package
-pip2 install flake8 pep8-naming flake8-coding flake8-copyright flake8-docstrings flake8-isort flake8-quotes
-pip3 install platformio cmake-format isort
+pip3 install flake8 pep8-naming flake8-coding flake8-copyright flake8-docstrings flake8-isort flake8-quotes  platformio cmake-format isort
 
 # config docker
 sudo gpasswd -a ${USER} docker
@@ -90,7 +91,7 @@ gh repo clone dotfiles
 cd dotfiles
 make init
 make deploy
-dconf write /org/gnome/shell/favorite-apps "['google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'code.desktop', 'gitkraken_gitkraken.desktop']"
+dconf write /org/gnome/shell/favorite-apps "['google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'code.desktop']"
 dconf load /apps/guake/ < guake.conf
 
 # gpg key config
