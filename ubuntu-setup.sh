@@ -66,6 +66,9 @@ pip3 install pipenv
 # install python-package
 pip3 install flake8 pep8-naming flake8-coding flake8-copyright flake8-docstrings flake8-isort flake8-quotes  platformio cmake-format isort
 
+# install rust
+curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh
+
 # config docker
 sudo gpasswd -a ${USER} docker
 sudo chmod 666 /var/run/docker.sock
