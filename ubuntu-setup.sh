@@ -120,6 +120,9 @@ gh repo clone Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 gh repo clone junegunn/fzf ~/.fzf -- --depth 1
 ~/.fzf/install
 
+curl -sSL https://install.python-poetry.org | python3 -
+poetry config virtualenvs.in-project true
+
 # install gitkraken
 sudo snap install gitkraken --classic
 
