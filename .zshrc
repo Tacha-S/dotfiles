@@ -91,6 +91,7 @@ function depends() {
 source /opt/ros/${ROS_DISTRO}/setup.zsh
 eval "$(register-python-argcomplete3 ros2)"
 eval "$(register-python-argcomplete3 colcon)"
+export RCUTILS_COLORIZED_OUTPUT=1
 export ROS_WS=~/ros
 source ${ROS_WS}/devel/setup.zsh
 source `catkin locate --shell-verbs`
@@ -245,3 +246,4 @@ cc() {
 
 export LIBDYNAMIXEL=/usr/local
 export SPEAKER=true
+export PULSE_SERVER=$HOME/.config/pulse/server
