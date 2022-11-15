@@ -49,11 +49,11 @@ gh ssh-key add ~/.ssh/id_rsa.pub
 gh auth setup-git
 
 # install cuda 11.3
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-keyring_1.0-1_all.deb
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb
 sudo dpkg -i cuda-keyring_1.0-1_all.deb
 sudo apt-get update
-sudo apt-get -y install cuda-11-3 libcudnn8 libcudnn8-dev
-sudo apt-mark hold cuda-11-3
+sudo apt-get -y install cuda-11-6 libcudnn8 libcudnn8-dev
+sudo apt-mark hold cuda-11-6
 rm cuda-keyring_1.0-1_all.deb
 
 # install pyenv
