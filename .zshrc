@@ -82,6 +82,7 @@ alias ll='ls -l --color=auto'
 alias la='ls -a --color=auto'
 alias grep='grep --color=auto'
 alias df='df -h'
+alias rsync='rsync -rltD --progress'
 function depends() {
   command apt-rdepends -p --follow=Depends,PreDepends,Recommends --show=Depends,PreDepends,Recommends $1 | grep "^\w" | sort -u
 }
