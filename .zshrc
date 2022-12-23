@@ -118,9 +118,6 @@ if [ -d "${PYENV_ROOT}" ]; then
   eval "$(pyenv init -)"
 fi
 
-# direnv
-eval "$(direnv hook zsh)"
-
 # rust
 source ~/.cargo/env
 
@@ -189,6 +186,9 @@ fzf-switch-branch() {
 }
 zle -N fzf-switch-branch
 bindkey "^b" fzf-switch-branch
+
+# direnv
+eval "$(direnv hook zsh)"
 
 writecmd() {
   perl -e 'ioctl STDOUT, 0x5412, $_ for split //, do{ chomp($_ = <>); $_ }' ;
