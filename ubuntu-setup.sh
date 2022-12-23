@@ -123,6 +123,9 @@ gh repo clone junegunn/fzf ~/.fzf -- --depth 1
 curl -sSL https://install.python-poetry.org | python3 -
 poetry config virtualenvs.in-project true
 
+# install direnv
+curl -sfL https://direnv.net/install.sh | bash
+
 # install gitkraken
 sudo snap install gitkraken --classic
 

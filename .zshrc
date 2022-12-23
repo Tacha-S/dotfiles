@@ -118,6 +118,9 @@ if [ -d "${PYENV_ROOT}" ]; then
   eval "$(pyenv init -)"
 fi
 
+# direnv
+eval "$(direnv hook zsh)"
+
 # rust
 source ~/.cargo/env
 
