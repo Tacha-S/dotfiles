@@ -89,19 +89,18 @@ function depends() {
 
 
 # ROS
-source /opt/ros/${ROS_DISTRO}/setup.zsh
+source /opt/ros/`ls /opt/ros`/setup.zsh
 eval "$(register-python-argcomplete3 ros2)"
 eval "$(register-python-argcomplete3 colcon)"
 export RCUTILS_COLORIZED_OUTPUT=1
-export ROS_WS=~/ros
-source ${ROS_WS}/devel/setup.zsh
+#source ros/devel/setup.zsh
 source `catkin locate --shell-verbs`
 source /usr/share/vcstool-completion/vcs.zsh
 export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
 alias cs='catkin source'
-alias cba='catkin build -w ${ROS_WS} && cs'
-alias cca='catkin clean -w ${ROS_WS}'
-alias rdi='rosdep install --from-paths ${ROS_WS}/src -yir --rosdistro=${ROS_DISTRO}'
+alias cba='catkin build && cs'
+alias cca='catkin clean'
+alias rdi='rosdep install --from-paths . -yir --rosdistro=${ROS_DISTRO}'
 
 export PATH=$PATH:~/.local/bin
 
@@ -200,7 +199,7 @@ rcd() {
 rl() {
     local package
     package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
-        find $(catkin locate -w $ROS_WS "$package") -type f -name "*.launch" -printf "%f\n" | fzf-tmux --query="$1" -1 -0 |\
+        find $(catkin locate "$package") -type f -name "*.launch" -printf "%f\n" | fzf-tmux --query="$1" -1 -0 |\
         sed "s/^/roslaunch "$package" /" | writecmd
 }
 rb() {
@@ -210,7 +209,7 @@ rb() {
 rr() {
     local package
     package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
-        find $(catkin locate -w $ROS_WS "$package") -type f -executable -printf "%f\n" | fzf-tmux --query="$1" -1 -0 |\
+        find $(catkin locate "$package") -type f -executable -printf "%f\n" | fzf-tmux --query="$1" -1 -0 |\
         sed "s/^/rosrun "$package" /" | writecmd
 }
 rte() {
@@ -237,12 +236,12 @@ rni() {
 cb() {
     local package
     package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
-        catkin build -w $ROS_WS "$package" && cs
+        catkin build "$package" && cs
 }
 cc() {
     local package
     package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
-        catkin clean -w $ROS_WS "$package" && cs
+        catkin clean "$package" && cs
 }
 
 export LIBDYNAMIXEL=/usr/local
