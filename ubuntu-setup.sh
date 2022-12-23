@@ -64,7 +64,7 @@ gh repo clone pyenv/pyenv ~/.pyenv
 pip3 install pipenv
 
 # install python-package
-pip3 install flake8 pep8-naming flake8-coding flake8-copyright flake8-docstrings flake8-isort flake8-quotes  platformio cmake-format isort
+pip3 install flake8 pep8-naming flake8-coding flake8-copyright flake8-docstrings flake8-isort flake8-quotes platformio cmake-format isort yamlfixer-opt-nc
 
 # install rust
 curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh
