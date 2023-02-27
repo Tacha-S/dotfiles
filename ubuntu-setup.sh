@@ -34,7 +34,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/llvm-
 
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-15 guake global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-15 guake global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd tdrop
 
 sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-15 1
 
@@ -68,6 +68,10 @@ pip3 install flake8 pep8-naming flake8-coding flake8-copyright flake8-docstrings
 
 # install rust
 curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh
+
+# install wezterm
+curl -LO https://github.com/wez/wezterm/releases/download/20221119-145034-49b9839f/wezterm-20221119-145034-49b9839f.Ubuntu20.04.deb
+sudo apt install -y ./wezterm-20221119-145034-49b9839f.Ubuntu20.04.deb
 
 # config docker
 sudo gpasswd -a ${USER} docker
