@@ -152,6 +152,8 @@ sudo apt purge libomp-10-dev libomp5-10
 # NAS config
 echo NAS password:
 read password
-echo "/nas -fstype=cifs,rw,username=admin,password=$password,uid=1000,gid=1000 ://robotics-nas/Public" | sudo tee /etc/auto.nas
+echo "/nas -fstype=cifs,rw,username=gisen,password=$password,uid=1000,gid=1000 ://robotics-nas/Public" | sudo tee /etc/auto.nas
+echo "/bag -fstype=cifs,rw,username=gisen,password=$password,uid=1000,gid=1000 ://rosbag-nas/Public" | sudo tee /etc/auto.nas
+echo "/media-nas -fstype=cifs,rw,username=gisen,password=$password,uid=1000,gid=1000 ://media-nas/Public" | sudo tee /etc/auto.nas
 sudo sed -i -e "s:^+auto.master$:#+auto.master\n/- /etc/auto.nas --timeout 60:g" /etc/auto.master
 sudo service autofs restart
