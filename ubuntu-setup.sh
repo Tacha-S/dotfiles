@@ -70,8 +70,8 @@ pip3 install flake8 pep8-naming flake8-coding flake8-copyright flake8-docstrings
 curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh
 
 # install wezterm
-curl -LO https://github.com/wez/wezterm/releases/download/20221119-145034-49b9839f/wezterm-20221119-145034-49b9839f.Ubuntu20.04.deb
-sudo apt install -y ./wezterm-20221119-145034-49b9839f.Ubuntu20.04.deb
+curl -LO https://github.com/wez/wezterm/releases/download/20230320-124340-559cb7b0/wezterm-20230320-124340-559cb7b0.Ubuntu20.04.deb
+sudo apt install -y ./wezterm-20230320-124340-559cb7b0.Ubuntu20.04.deb
 
 # config docker
 sudo gpasswd -a ${USER} docker

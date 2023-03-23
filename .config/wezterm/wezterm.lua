@@ -9,8 +9,7 @@ return {
 
   leader = { key="q", mods="CTRL" },
   keys = {
-    -- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
-    { key = "a", mods = "LEADER|CTRL",  action=wezterm.action{SendString="\x01"}},
+    { key = "q", mods = "LEADER|CTRL",  action=wezterm.action{SendString="\x11"}},
     { key = "-", mods = "LEADER",       action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
     { key = "\\",mods = "LEADER",       action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
     { key = "z", mods = "LEADER",       action="TogglePaneZoomState" },
@@ -30,12 +29,23 @@ return {
   },
   ssh_domains = {
     {
-      -- This name identifies the domain
       name = 'office',
-      -- The hostname or address to connect to. Will be used to match settings
-      -- from your ssh config file
       remote_address = '192.168.128.10',
-      -- The username to use on the remote host
+      username = 'gisen',
+    },
+    {
+      name = 'cuboid',
+      remote_address = '192.168.130.4',
+      username = 'cuboid',
+    },
+    {
+      name = 'soar',
+      remote_address = '192.168.132.3',
+      username = 'soar',
+    },
+    {
+      name = 'wheeltec',
+      remote_address = '192.168.132.4',
       username = 'gisen',
     },
   },
