@@ -32,14 +32,15 @@ for setup_file in srcs.glob('**/setup.py'):
                 package_dir = ast.literal_eval(elms[index])
                 for k, v in package_dir.items():
                     if k == '':
-                        my_extra_paths.append(str("${workspaceFolder}" / setup_file.parent / v))
+                        my_extra_paths.append(str(setup_file.parent.absolute() / v))
 
-with open('.vscode/settings.json', 'r') as f:
+workspace_file = list(pathlib.Path('.').glob('*.code-workspace'))[0]
+with open(workspace_file, 'r') as f:
     settings = json.load(f)
 
-extra_paths = settings['python.analysis.extraPaths'][-2:]
-settings['python.analysis.extraPaths'] = my_extra_paths + extra_paths
-settings['python.autoComplete.extraPaths'] = my_extra_paths + extra_paths
+extra_paths = settings['settings']['python.analysis.extraPaths'][-2:]
+settings['settings']['python.analysis.extraPaths'] = my_extra_paths + extra_paths
+settings['settings']['python.autoComplete.extraPaths'] = my_extra_paths + extra_paths
 
-with open('.vscode/settings.json', 'w') as f:
+with open(workspace_file, 'w') as f:
     json.dump(settings, f)
