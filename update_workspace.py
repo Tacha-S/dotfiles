@@ -7,6 +7,7 @@ import pathlib
 import re
 
 srcs = pathlib.Path('src')
+folders = sorted([f for f in srcs.iterdir() if f.is_dir()])
 my_extra_paths = []
 for repo_file in srcs.glob('**/.git'):
     if (repo_file.parent / 'CATKIN_IGNORE').exists():
@@ -38,6 +39,7 @@ workspace_file = list(pathlib.Path('.').glob('*.code-workspace'))[0]
 with open(workspace_file, 'r') as f:
     settings = json.load(f)
 
+settings['folders'] = [{'path': str(f)} for f in folders]
 extra_paths = settings['settings']['python.analysis.extraPaths'][-2:]
 settings['settings']['python.analysis.extraPaths'] = my_extra_paths + extra_paths
 settings['settings']['python.autoComplete.extraPaths'] = my_extra_paths + extra_paths
