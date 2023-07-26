@@ -18,6 +18,7 @@ cmake-build-debug/
 
 # config
 setup.cfg
+pyproject.toml
 
 # direnv
 .envrc
