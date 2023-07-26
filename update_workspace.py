@@ -12,9 +12,12 @@ my_extra_paths = []
 for repo_file in srcs.glob('**/.git'):
     if (repo_file.parent / 'CATKIN_IGNORE').exists():
         continue
-    config = repo_file.parent / 'setup.cfg'
+    old_config = repo_file.parent / 'setup.cfg'
+    if old_config.is_symlink():
+        old_config.unlink()
+    config = repo_file.parent / 'pyproject.toml'
     if not config.exists():
-        config.symlink_to(pathlib.Path.home() / 'work/.github/setup.cfg')
+        config.symlink_to(pathlib.Path.home() / 'work/.github/pyproject.toml')
 for setup_file in srcs.glob('**/setup.py'):
     if '.venv' in str(setup_file):
         continue

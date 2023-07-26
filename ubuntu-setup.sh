@@ -60,7 +60,7 @@ rm cuda-keyring_1.0-1_all.deb
 curl -sSf https://rye-up.com/get | bash
 
 # install python-package
-pip3 install flake8 pep8-naming flake8-coding flake8-copyright flake8-docstrings flake8-isort flake8-quotes platformio cmake-format isort yamlfixer-opt-nc
+pip3 install flake8 pep8-naming flake8-coding flake8-copyright flake8-docstrings flake8-isort flake8-quotes platformio cmake-format isort yamlfixer-opt-nc pyproject-flake8
 
 # install rust
 curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh
