@@ -118,6 +118,9 @@ if [ -d "${PYENV_ROOT}" ]; then
   eval "$(pyenv init -)"
 fi
 
+#rye
+source "$HOME/.rye/env"
+
 # rust
 source ~/.cargo/env
 

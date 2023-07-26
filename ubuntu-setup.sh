@@ -56,12 +56,8 @@ sudo apt-get -y install cuda-11-7 libcudnn8 libcudnn8-dev
 sudo apt-mark hold cuda-11-7
 rm cuda-keyring_1.0-1_all.deb
 
-# install pyenv
-sudo apt install -y build-essential libffi-dev libssl-dev zlib1g-dev liblzma-dev libbz2-dev libreadline-dev libsqlite3-dev
-gh repo clone pyenv/pyenv ~/.pyenv
-
-# install pipenv
-pip3 install pipenv
+# install rye
+curl -sSf https://rye-up.com/get | bash
 
 # install python-package
 pip3 install flake8 pep8-naming flake8-coding flake8-copyright flake8-docstrings flake8-isort flake8-quotes platformio cmake-format isort yamlfixer-opt-nc
