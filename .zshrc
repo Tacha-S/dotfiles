@@ -253,3 +253,4 @@ cc() {
 export LIBDYNAMIXEL=/usr/local
 export SPEAKER=true
 export PULSE_SERVER=$HOME/.config/pulse/server
+export MYPYPATH=""
