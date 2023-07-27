@@ -162,21 +162,6 @@ zinit light arks22/tmuximum
 zinit ice as"program" mv"zemojify -> emojify"
 zinit light filipekiss/zemojify
 
-zinit ice depth=1; zinit light romkatv/powerlevel10k
-### End of Zinit's installer chunk
-
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-function prompt_ros() {
-  if [[ -z "$ROS_MASTER_URI" ]]; then
-  else
-    host=`echo $ROS_MASTER_URI | sed -e 's|^[^/]*//||' -e 's|:.*$||'`
-    if [ $host != "localhost" ]; then
-      p10k segment -f red -i '⚙' -t "$host"
-    fi
-  fi
-}
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=ros
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 fzf-switch-branch() {
@@ -192,6 +177,9 @@ bindkey "^b" fzf-switch-branch
 
 # direnv
 eval "$(direnv hook zsh)"
+
+# starship
+eval "$(starship init zsh)"
 
 writecmd() {
   perl -e 'ioctl STDOUT, 0x5412, $_ for split //, do{ chomp($_ = <>); $_ }' ;

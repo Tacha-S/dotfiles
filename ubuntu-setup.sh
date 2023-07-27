@@ -133,11 +133,11 @@ poetry config virtualenvs.in-project true
 # install direnv
 curl -sfL https://direnv.net/install.sh | bash
 
-# install gitkraken
-sudo snap install gitkraken --classic
-
 # install slack
 sudo snap install slack --classic
+
+# install starship
+sudo snap install --edge starship
 
 # fix clock
 sudo hwclock -D --systohc --localtime
