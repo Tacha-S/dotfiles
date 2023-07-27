@@ -4,7 +4,7 @@ return {
   color_scheme = 'Molokai',
   window_background_opacity = 0.9,
   font_dirs = {'/usr/share/fonts/opentype'},
-  font = wezterm.font_with_fallback {{family = 'SauceCodePro NF Medium', weight = 'Medium'}, {family = 'Source Han Code JP M', weight = 'Medium'}},
+  font = wezterm.font_with_fallback {{family = 'Source Han Code JP M', weight = 'Medium'}, {family = 'Symbols Nerd Font', weight = 'Medium'}},
   font_size = 14.0,
 
   leader = { key="q", mods="CTRL" },

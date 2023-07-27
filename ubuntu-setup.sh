@@ -94,6 +94,13 @@ gh repo clone dotfiles
 cd dotfiles
 make init
 make deploy
+# install fonts
+wget https://github.com/adobe-fonts/source-han-code-jp/releases/latest/download/SourceHanCodeJP.ttc
+sudo mv SourceHanCodeJP.ttc /usr/share/fonts/truetype/
+wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/NerdFontsSymbolsOnly.zip
+unzip NerdFontsSymbolsOnly.zip -d NerdFontsSymbolsOnly
+sudo mv NerdFontsSymbolsOnly /usr/share/fonts/truetype/
+sudo fc-cache -fv
 dconf write /org/gnome/shell/favorite-apps "['google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'code.desktop']"
 dconf load /apps/guake/ < guake.conf
 
