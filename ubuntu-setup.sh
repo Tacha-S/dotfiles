@@ -116,7 +116,7 @@ gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 28
 gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Noto Sans CJK JP Bold 12'
 gsettings set org.gnome.desktop.interface font-name 'Noto Sans CJK JP 11'
 gsettings set org.gnome.desktop.interface document-font-name 'Noto Sans CJK JP 11'
-gsettings set org.gnome.desktop.interface monospace-font-name 'SauceCodePro NF Medium 15'
+gsettings set org.gnome.desktop.interface monospace-font-name 'Source Han Code JP M 15'
 
 # install neobundle
 mkdir -p ~/.vim/bundle
