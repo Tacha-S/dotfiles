@@ -148,14 +148,14 @@ cd tdrop
 sudo checkinstall -y --pkgname=tdrop --default
 
 # purge packages
-sudo apt purge apport
+sudo apt purge -y apport
 
 # enable fcitx
 im-config -n fcitx
 fcitx &
 fcitx-imlist -e mozc
 
-sudo apt purge libomp-10-dev libomp5-10
+sudo apt purge -y libomp-10-dev libomp5-10
 
 # NAS config
 echo NAS password:
