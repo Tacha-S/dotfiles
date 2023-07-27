@@ -63,7 +63,8 @@ style = "red bg:#333333"
 format = '[$state( $progress_current/$progress_total) ]($style)'
 
 [git_status]
-format = """([$ahead_behind$conflicted$stashed$renamed$staged]($style)\
+format = """([$ahead_behind$stashed$renamed$staged]($style)\
+[$conflicted](red bg:#333333)\
 [$deleted$modified](yellow bg:#333333)\
 [$untracked](bright-blue bg:#333333))"""
 style = 'green bg:#333333'
