@@ -21,6 +21,8 @@ $container\
 $nodejs\
 $rust\
 $python\
+${custom.direnv}\
+${custom.ros}\
 $time"""
 
 [username]
@@ -97,3 +99,15 @@ symbol = ' '
 
 [package]
 disabled = true
+
+[custom.direnv]
+command = "direnv status | grep 'Found RC path' | awk -F / '{ print $(NF-1) }'"
+when = ''' direnv status | grep Found '''
+format = '[$symbol$output ]($style)'
+symbol = ' '
+
+[custom.ros]
+command = "echo $ROS_MASTER_URI | awk -F / '{ print $NF }'"
+when = ''' [ ! -z $ROS_IP ] '''
+format = '[$symbol$output ]($style)'
+symbol = '󱗼 '

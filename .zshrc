@@ -97,6 +97,7 @@ export RCUTILS_COLORIZED_OUTPUT=1
 source `catkin locate --shell-verbs`
 source /usr/share/vcstool-completion/vcs.zsh
 export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
+export NO_ROS_PROMPT=1
 alias cs='catkin source'
 alias cba='catkin build && cs'
 alias cca='catkin clean'
