@@ -34,7 +34,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/llvm-
 
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-16 global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-16 global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk fzf
 
 sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-16 1
 
@@ -121,10 +121,6 @@ gsettings set org.gnome.desktop.interface monospace-font-name 'Source Han Code J
 # install neobundle
 mkdir -p ~/.vim/bundle
 gh repo clone Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-
-# install fzf
-gh repo clone junegunn/fzf ~/.fzf -- --depth 1
-~/.fzf/install
 
 curl -sSL https://install.python-poetry.org | python3 -
 poetry config virtualenvs.in-project true
