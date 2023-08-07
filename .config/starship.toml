@@ -33,6 +33,7 @@ style_user = "yellow bg:#333333"
 [hostname]
 format = "[$ssh_symbol$hostname]($style)"
 style = "yellow bg:#333333"
+ssh_symbol = "  "
 
 [character]
 success_symbol = "[❯](green)"
