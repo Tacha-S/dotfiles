@@ -22,3 +22,8 @@ pyproject.toml
 
 # direnv
 .envrc
+
+# rye
+requirements-dev.lock
+requirements.lock
+.python-version
