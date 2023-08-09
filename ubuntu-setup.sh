@@ -34,7 +34,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/llvm-
 
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-16 global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk fzf
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-16 global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk fzf direnv
 
 sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-16 1
 
@@ -57,13 +57,13 @@ sudo apt-mark hold cuda-11-7
 rm cuda-keyring_1.0-1_all.deb
 
 # install rye
-curl -sSf https://rye-up.com/get | bash
+curl -sSf https://rye-up.com/get | RYE_INSTALL_OPTION="--yes" bash
 
 # install python-package
 pip3 install flake8 pep8-naming flake8-coding flake8-copyright flake8-docstrings flake8-isort flake8-quotes platformio cmake-format isort yamlfixer-opt-nc pyproject-flake8
 
 # install rust
-curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh
+curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh -s -- -y
 
 # install wezterm
 curl -LO https://github.com/wez/wezterm/releases/download/20230320-124340-559cb7b0/wezterm-20230320-124340-559cb7b0.Ubuntu20.04.deb
@@ -94,6 +94,7 @@ gh repo clone dotfiles
 cd dotfiles
 make init
 make deploy
+
 # install fonts
 wget https://github.com/adobe-fonts/source-han-code-jp/releases/latest/download/SourceHanCodeJP.ttc
 sudo mv SourceHanCodeJP.ttc /usr/share/fonts/truetype/
@@ -102,6 +103,7 @@ unzip NerdFontsSymbolsOnly.zip -d NerdFontsSymbolsOnly
 sudo mv NerdFontsSymbolsOnly /usr/share/fonts/truetype/
 sudo fc-cache -fv
 dconf write /org/gnome/shell/favorite-apps "['google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'code.desktop']"
+rm NerdFontsSymbolsOnly.zip
 
 # gpg key config
 gpg --gen-key
@@ -122,17 +124,11 @@ gsettings set org.gnome.desktop.interface monospace-font-name 'Source Han Code J
 mkdir -p ~/.vim/bundle
 gh repo clone Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 
-curl -sSL https://install.python-poetry.org | python3 -
-poetry config virtualenvs.in-project true
-
-# install direnv
-curl -sfL https://direnv.net/install.sh | bash
-
 # install slack
 sudo snap install slack --classic
 
 # install starship
-sudo snap install --edge starship
+curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
 # fix clock
 sudo hwclock -D --systohc --localtime
