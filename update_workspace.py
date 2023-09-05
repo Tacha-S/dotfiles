@@ -6,18 +6,10 @@ import json
 import pathlib
 import re
 
-srcs = pathlib.Path('src')
+workspaces_root = pathlib.Path('.').absolute().parent.parent
+srcs = workspaces_root / 'src'
 folders = sorted([f for f in srcs.iterdir() if f.is_dir()])
 my_extra_paths = []
-for repo_file in srcs.glob('**/.git'):
-    if (repo_file.parent / 'CATKIN_IGNORE').exists():
-        continue
-    old_config = repo_file.parent / 'setup.cfg'
-    if old_config.is_symlink():
-        old_config.unlink()
-    config = repo_file.parent / 'pyproject.toml'
-    if not config.exists():
-        config.symlink_to(pathlib.Path.home() / 'work/.github/pyproject.toml')
 for setup_file in srcs.glob('**/setup.py'):
     if '.venv' in str(setup_file):
         continue
@@ -26,24 +18,27 @@ for setup_file in srcs.glob('**/setup.py'):
     with open(setup_file, 'r') as f:
         for line in f:
             if 'package_dir' in line:
-                elms = [e.strip(' \n\t)') for e in re.split('[=,]', line)]
-                index = -1
-                for i, e in enumerate(elms):
-                    if 'package_dir' in e:
-                        index = i + 1
-                if index == -1:
-                    break
-                package_dir = ast.literal_eval(elms[index])
+                dirs = re.split('[=]', line)[-1].strip().strip(')')
+                if dirs.endswith(','):
+                    dirs = dirs[:-1]
+                package_dir = ast.literal_eval(dirs)
                 for k, v in package_dir.items():
                     if k == '':
-                        my_extra_paths.append(str(setup_file.parent.absolute() / v))
+                        my_extra_paths.append(str((setup_file.parent.absolute() / v).relative_to(workspaces_root)))
 
-workspace_file = list(pathlib.Path('.').glob('*.code-workspace'))[0]
-with open(workspace_file, 'r') as f:
-    settings = json.load(f)
+workspaces = list(workspaces_root.glob('*.code-workspace'))
+if not workspaces:
+    workspace_file = workspaces_root / f'{workspaces_root.name}.code-workspace'
+    settings = {'settings': {}}
+else:
+    workspace_file = workspaces[0]
+    with open(workspace_file, 'r') as f:
+        settings = json.load(f)
 
-settings['folders'] = [{'path': str(f)} for f in folders]
-extra_paths = settings['settings']['python.analysis.extraPaths'][-2:]
+settings['folders'] = [{'path': str(f.relative_to(workspaces_root))} for f in folders]
+extra_paths = []
+if 'python.analysis.extraPaths' in settings['settings']:
+    extra_paths = settings['settings']['python.analysis.extraPaths'][-2:]
 settings['settings']['python.analysis.extraPaths'] = my_extra_paths + extra_paths
 settings['settings']['python.autoComplete.extraPaths'] = my_extra_paths + extra_paths
 
