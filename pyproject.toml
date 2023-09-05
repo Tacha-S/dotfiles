@@ -22,11 +22,10 @@ aggressive = 2
 [tool.yapf]
 column_limit = 119
 DEDENT_CLOSING_BRACKETS = false
-SPLIT_PENALTY_AFTER_OPENING_BRACKET = true
 SPLIT_BEFORE_ARITHMETIC_OPERATOR = true
 
 [tool.ruff]
-src = ["src"]
+src = ["src", "."]
 line-length = 119
 select = ["ANN", "E", "F", "I", "N", "W", "D", "T", "CPY", "Q"]
 ignore = ["ANN002", "ANN003", "ANN1"]
