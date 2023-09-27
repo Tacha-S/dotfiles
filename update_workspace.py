@@ -15,6 +15,8 @@ for setup_file in srcs.glob('**/setup.py'):
         continue
     if (setup_file.parent / 'CATKIN_IGNORE').exists():
         continue
+    if (setup_file.parent / 'pyproject.toml').exists():
+        pathlib.Path(setup_file.parent / 'pyproject.toml').unlink()
     with open(setup_file, 'r') as f:
         for line in f:
             if 'package_dir' in line:
@@ -24,7 +26,7 @@ for setup_file in srcs.glob('**/setup.py'):
                 package_dir = ast.literal_eval(dirs)
                 for k, v in package_dir.items():
                     if k == '':
-                        my_extra_paths.append(str((setup_file.parent.absolute() / v).relative_to(workspaces_root)))
+                        my_extra_paths.append(str((setup_file.parent.absolute() / v)))
 
 workspaces = list(workspaces_root.glob('*.code-workspace'))
 if not workspaces:
