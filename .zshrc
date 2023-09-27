@@ -121,6 +121,7 @@ fi
 
 #rye
 source "$HOME/.rye/env"
+rye self completion > ~/.zsh/completions/rye.zsh
 
 # rust
 source ~/.cargo/env
