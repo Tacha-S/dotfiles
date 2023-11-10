@@ -1,0 +1,108 @@
+repos:
+  - repo: https://github.com/sirwart/ripsecrets
+    rev: v0.1.6
+    hooks:
+      - id: ripsecrets
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.0.1
+    hooks:
+      - id: detect-secrets
+        args: ["--disable-plugin", "KeywordDetector"]
+        exclude: package.lock.json
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: mixed-line-ending
+        args:
+          - "--fix=lf"
+        description: Forces to replace line ending by the UNIX 'lf' character.
+      - id: end-of-file-fixer
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.1.4
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix, --config, /opt/work/.github/pyproject.toml, --ignore, D]
+  #     - id: ruff-format
+  #       args: [--config, /opt/work/.github/pyproject.toml]
+  # - repo: https://github.com/pycqa/isort
+  #   rev: 5.12.0
+  #   hooks:
+  #     - id: isort
+  #       name: isort (python)
+  #       args: ["-l", "119", "--sl", "--sp", "/opt/work/.github/pyproject.toml"]
+  - repo: https://github.com/pre-commit/mirrors-autopep8
+    rev: v2.0.1
+    hooks:
+      - id: autopep8
+        args: [--global-config, /opt/work/.github/pyproject.toml, --in-place]
+  # - repo: https://github.com/pycqa/flake8
+  #   rev: 6.0.0
+  #   hooks:
+  #     - id: flake8
+  #       entry: pflake8
+  #       args: ['--config', '/opt/work/.github/pyproject.toml', '--select', 'E,F,W,C,N,I,ANN']
+  # yamllint disable-line rule:line-length
+  #       additional_dependencies: [pep8-naming, flake8, flake8-coding, flake8-copyright, flake8-annotations, flake8-docstrings]
+  - repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v13.0.0
+    hooks:
+      - id: clang-format
+  - repo: git@github.com:sbgisen/pre-commit-hooks.git
+    rev: v1.1.2
+    hooks:
+      - id: ros-clang-tidy
+        args: [--command, clang-tidy-15, --warnings-as-errors=*, --quiet]
+  - repo: git@github.com:sbgisen/pre-commit-hooks.git
+    rev: v1.1.1
+    hooks:
+      - id: yamlfixer
+        args: [-c, /home/tacha/ros/.yamllint]
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.26.3
+    hooks:
+      - id: yamllint
+        args:
+          - "-s"
+          - "-c"
+          - "/home/tacha/ros/.yamllint"
+  - repo: https://github.com/cheshirekow/cmake-format-precommit
+    rev: v0.6.13
+    hooks:
+      - id: cmake-format
+  - repo: git@github.com:sbgisen/pre-commit-hooks.git
+    rev: v1.1.1
+    hooks:
+      - id: xmllint
+        name: check launch files schema
+        args:
+          - "--schema=~/ros/roslaunch.xsd"
+        types_or:
+          - "file"
+        files: ^.*launch\/.*\.(launch|xml)$
+  - repo: git@github.com:sbgisen/pre-commit-hooks.git
+    rev: v1.1.1
+    hooks:
+      - id: package_lint
+        name: check package.xml schema
+  - repo: git@github.com:sbgisen/pre-commit-hooks.git
+    rev: v1.1.1
+    hooks:
+      - id: xmllint
+        name: xml format
+        args:
+          - "-i"
+          - "--format"
+          - "--ignore-empty"
+        types_or:
+          - "file"
+        files: ^.*\.(launch|xml|xacro|urdf)$
+  - repo: git@github.com:sbgisen/pre-commit-hooks.git
+    rev: v1.1.1
+    hooks:
+      - id: catkin_lint
+        args:
+          - --config
+          - /home/tacha/ros/.catkin_lint
+          - --strict
+          - "."
