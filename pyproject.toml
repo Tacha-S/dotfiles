@@ -19,6 +19,12 @@ max_line_length = 119
 ignore = "W503"
 aggressive = 2
 
+[tool.yapf]
+based_on_style = "pep8"
+column_limit = 119
+DEDENT_CLOSING_BRACKETS = false
+SPLIT_BEFORE_ARITHMETIC_OPERATOR = true
+
 [tool.ruff]
 src = ["src", "."]
 line-length = 119
