@@ -37,7 +37,21 @@ else:
     with open(workspace_file, 'r') as f:
         settings = json.load(f)
 
-settings['folders'] = [{'path': str(f.relative_to(workspaces_root))} for f in folders]
+excludes = []
+if 'excludeFolders' in settings:
+    for folder in settings['excludeFolders']:
+        excludes.append(folder['path'])
+settings['folders'] = [{
+    'path': str(f.relative_to(workspaces_root))
+} for f in folders if str(f.relative_to(workspaces_root)) not in excludes]
+exclude_folders = []
+relative_paths = [str(f.relative_to(workspaces_root)) for f in folders]
+if 'excludeFolders' in settings:
+    for folder in settings['excludeFolders']:
+        if folder['path'] in relative_paths:
+            exclude_folders.append(folder)
+settings['excludeFolders'] = exclude_folders
+
 extra_paths = []
 if 'python.analysis.extraPaths' in settings['settings']:
     extra_paths = settings['settings']['python.analysis.extraPaths'][-2:]
