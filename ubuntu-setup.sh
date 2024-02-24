@@ -28,9 +28,9 @@ curl -s -L https://nvidia.github.io/libnvidia-container/$distribution/libnvidia-
   sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
   sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list > /dev/null
 
-# add clangd 16 repo
+# add clangd 17 repo
 curl -fsSL https://apt.llvm.org/llvm-snapshot.gpg.key | gpg --dearmor | sudo tee /usr/share/keyrings/llvm-snapshot.gpg > /dev/null
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/llvm-snapshot.gpg] http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-16 main" | sudo tee /etc/apt/sources.list.d/llvm.list > /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/llvm-snapshot.gpg] http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-17 main" | sudo tee /etc/apt/sources.list.d/llvm.list > /dev/null
 
 sudo apt update
 
@@ -48,12 +48,12 @@ ssh-keygen -f ${HOME}/.ssh/id_rsa -t rsa -N ''
 gh ssh-key add ~/.ssh/id_rsa.pub
 gh auth setup-git
 
-# install cuda 11.7
+# install cuda 12.1
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb
 sudo dpkg -i cuda-keyring_1.0-1_all.deb
 sudo apt-get update
-sudo apt-get -y install cuda-11-7 libcudnn8 libcudnn8-dev
-sudo apt-mark hold cuda-11-7
+sudo apt-get -y install cuda-12-1 libcudnn8 libcudnn8-dev
+sudo apt-mark hold cuda-12-1
 rm cuda-keyring_1.0-1_all.deb
 
 # install rye

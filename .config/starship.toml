@@ -23,6 +23,7 @@ $rust\
 $python\
 ${custom.direnv}\
 ${custom.ros}\
+${custom.ros_domain}\
 $time"""
 
 [username]
@@ -112,3 +113,9 @@ command = "echo $ROS_MASTER_URI | awk -F / '{ print $NF }'"
 when = ''' [ ! -z $ROS_IP ] '''
 format = '[$symbol$output ]($style)'
 symbol = '󱗼 '
+
+[custom.ros_domain]
+command = "echo $ROS_DOMAIN_ID"
+when = ''' [ ! -z $ROS_DOMAIN_ID ] '''
+format = '[$symbol$output ]($style)'
+symbol = '󰇗 '

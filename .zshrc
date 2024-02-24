@@ -90,17 +90,24 @@ function depends() {
 
 # ROS
 source /opt/ros/`ls /opt/ros`/setup.zsh
-eval "$(register-python-argcomplete3 ros2)"
-eval "$(register-python-argcomplete3 colcon)"
-export RCUTILS_COLORIZED_OUTPUT=1
-#source ros/devel/setup.zsh
-source `catkin locate --shell-verbs`
-source /usr/share/vcstool-completion/vcs.zsh
-export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
-export NO_ROS_PROMPT=1
-alias cs='catkin source'
-alias cba='catkin build && cs'
-alias cca='catkin clean'
+if [[ $(lsb_release -cs) == "focal" ]]; then
+  source `catkin locate --shell-verbs`
+  source /usr/share/vcstool-completion/vcs.zsh
+  export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
+  export NO_ROS_PROMPT=1
+  alias cs='catkin source'
+  alias cba='catkin build && cs'
+  alias cca='catkin clean'
+else
+  eval "$(register-python-argcomplete3 ros2)"
+  eval "$(register-python-argcomplete3 colcon)"
+  source /usr/share/colcon_cd/function/colcon_cd.sh
+  export RCUTILS_COLORIZED_OUTPUT=1
+  colcon () {
+    workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
+    /usr/bin/colcon --log-base=${workspace}/log $@
+  }
+fi
 alias rdi='rosdep install --from-paths . -yir --rosdistro=${ROS_DISTRO}'
 
 export PATH=$PATH:~/.local/bin
@@ -187,60 +194,117 @@ writecmd() {
   perl -e 'ioctl STDOUT, 0x5412, $_ for split //, do{ chomp($_ = <>); $_ }' ;
 }
 
-rcd() {
-    local package
-    package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
-        roscd "$package"
-}
-rl() {
-    local package
-    package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
-        find $(catkin locate "$package") -type f -name "*.launch" -printf "%f\n" | fzf-tmux --query="$1" -1 -0 |\
-        sed "s/^/roslaunch "$package" /" | writecmd
-}
-rb() {
-   find $FZF_ROSBAG_DIRS -type f -name "*.bag" | fzf-tmux --query="$1" -1 -0 |\
-        sed "s/^/\$FZF_ROSBAG_PLAY_COMMAND/" | writecmd
-}
-rr() {
-    local package
-    package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
-        find $(catkin locate "$package") -type f -executable -printf "%f\n" | fzf-tmux --query="$1" -1 -0 |\
-        sed "s/^/rosrun "$package" /" | writecmd
-}
-rte() {
-    rostopic list > /dev/null &&
-        cmd=$(rostopic list | fzf-tmux --query="$1" -1 -0 |\
-        sed "s/^/rostopic echo /")
-    writecmd $cmd
-}
-rth() {
-    rostopic list > /dev/null &&
-        rostopic list | fzf-tmux --query="$1" -1 -0 |\
-        sed "s/^/rostopic hz /" | writecmd
-}
-rti() {
-    rostopic list > /dev/null &&
-        rostopic list | fzf-tmux --query="$1" -1 -0 |\
-        sed "s/^/rostopic info /" | writecmd
-}
-rni() {
-    rostopic list > /dev/null &&
-        rosnode list | fzf-tmux --query="$1" -1 -0 |\
-        sed "s/^/rosnode info /" | writecmd
-}
-cb() {
-    local package
-    package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
-        catkin build "$package" && cs
-}
-cc() {
-    local package
-    package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
-        catkin clean "$package" && cs
-}
+if [[ $(lsb_release -cs) == "focal" ]]; then
+    rcd() {
+        local package
+        package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
+            roscd "$package"
+    }
+    rl() {
+        local package
+        package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
+            find $(catkin locate "$package") -type f -name "*.launch" -printf "%f\n" | fzf-tmux --query="$1" -1 -0 |\
+            sed "s/^/roslaunch "$package" /" | writecmd
+    }
+    rb() {
+    find $FZF_ROSBAG_DIRS -type f -name "*.bag" | fzf-tmux --query="$1" -1 -0 |\
+            sed "s/^/\$FZF_ROSBAG_PLAY_COMMAND/" | writecmd
+    }
+    rr() {
+        local package
+        package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
+            find $(catkin locate "$package") -type f -executable -printf "%f\n" | fzf-tmux --query="$1" -1 -0 |\
+            sed "s/^/rosrun "$package" /" | writecmd
+    }
+    rte() {
+        rostopic list > /dev/null &&
+            cmd=$(rostopic list | fzf-tmux --query="$1" -1 -0 |\
+            sed "s/^/rostopic echo /")
+        writecmd $cmd
+    }
+    rth() {
+        rostopic list > /dev/null &&
+            rostopic list | fzf-tmux --query="$1" -1 -0 |\
+            sed "s/^/rostopic hz /" | writecmd
+    }
+    rti() {
+        rostopic list > /dev/null &&
+            rostopic list | fzf-tmux --query="$1" -1 -0 |\
+            sed "s/^/rostopic info /" | writecmd
+    }
+    rni() {
+        rostopic list > /dev/null &&
+            rosnode list | fzf-tmux --query="$1" -1 -0 |\
+            sed "s/^/rosnode info /" | writecmd
+    }
+    cb() {
+        local package
+        package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
+            catkin build "$package" && cs
+    }
+    cc() {
+        local package
+        package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
+            catkin clean "$package" && cs
+    }
+else
+    cba() {
+        workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
+        colcon --log-base=${workspace}/log build --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src
+    }
+    cca() {
+        workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
+        colcon --log-base=${workspace}/log clean workspace --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src
+    }
+    cb() {
+        workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
+        local package
+        package=$(colcon list -n | fzf-tmux --query="$1" -1 -0) &&
+            colcon build --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-up-to $package
+    }
+    cc() {
+        workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
+        local package
+        package=$(colcon list -n | fzf-tmux --query="$1" -1 -0) &&
+            colcon clean packages --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-select $package
+    }
+    cbt() {
+        workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
+        this_package=$(colcon list -n)
+        colcon build --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-up-to $this_package
+    }
+    cct() {
+        workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
+        this_package=$(colcon list -n)
+        colcon clean packages --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-select $this_package
+    }
+    rcd() {
+        local package
+        package=$(colcon list -n | fzf-tmux --query="$1" -1 -0) &&
+            colcon_cd "$package"
+    }
+    rte() {
+        local topic
+        topic=$(ros2 topic list | fzf-tmux --query="$1" -1 -0) &&
+            ros2 topic echo $topic
+    }
+    rth() {
+        local topic
+        topic=$(ros2 topic list | fzf-tmux --query="$1" -1 -0) &&
+            ros2 topic hz $topic
+    }
+    rti() {
+        local topic
+        topic=$(ros2 topic list | fzf-tmux --query="$1" -1 -0) &&
+            ros2 topic info -v $topic
+    }
+    rni() {
+        local node
+        node=$(ros2 node list | fzf-tmux --query="$1" -1 -0) &&
+            ros2 node info $topic
+    }
+fi
 
 export LIBDYNAMIXEL=/usr/local
 export SPEAKER=true
-export PULSE_SERVER=$HOME/.config/pulse/server
 export MYPYPATH=""
