@@ -103,6 +103,7 @@ else
   eval "$(register-python-argcomplete3 colcon)"
   source /usr/share/colcon_cd/function/colcon_cd.sh
   export RCUTILS_COLORIZED_OUTPUT=1
+  export ROS_LOCALHOST_ONLY=1
   colcon () {
     workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
     /usr/bin/colcon --log-base=${workspace}/log $@
@@ -254,7 +255,7 @@ else
     }
     cca() {
         workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
-        colcon --log-base=${workspace}/log clean workspace --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src
+        colcon --log-base=${workspace}/log clean workspace --build-base=${workspace}/build --install-base=${workspace}/install
     }
     cb() {
         workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
@@ -266,7 +267,7 @@ else
         workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
         local package
         package=$(colcon list -n | fzf-tmux --query="$1" -1 -0) &&
-            colcon clean packages --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-select $package
+            colcon clean packages --build-base=${workspace}/build --install-base=${workspace}/install --packages-select $package
     }
     cbt() {
         workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
