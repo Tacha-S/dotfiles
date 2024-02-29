@@ -90,14 +90,11 @@ function depends() {
 
 # ROS
 source /opt/ros/`ls /opt/ros`/setup.zsh
+source /usr/share/vcstool-completion/vcs.zsh
 if [[ $(lsb_release -cs) == "focal" ]]; then
   source `catkin locate --shell-verbs`
-  source /usr/share/vcstool-completion/vcs.zsh
   export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
   export NO_ROS_PROMPT=1
-  alias cs='catkin source'
-  alias cba='catkin build && cs'
-  alias cca='catkin clean'
 else
   eval "$(register-python-argcomplete3 ros2)"
   eval "$(register-python-argcomplete3 colcon)"
@@ -196,6 +193,9 @@ writecmd() {
 }
 
 if [[ $(lsb_release -cs) == "focal" ]]; then
+    alias cs='catkin source'
+    alias cba='catkin build && cs'
+    alias cca='catkin clean'
     rcd() {
         local package
         package=$(rospack list-names | fzf-tmux --query="$1" -1 -0) &&
