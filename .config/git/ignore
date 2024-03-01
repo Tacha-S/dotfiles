@@ -27,3 +27,7 @@ pyproject.toml
 requirements-dev.lock
 requirements.lock
 .python-version
+.venv
+
+
+.secrets

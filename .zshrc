@@ -309,3 +309,4 @@ fi
 export LIBDYNAMIXEL=/usr/local
 export SPEAKER=true
 export MYPYPATH=""
+source ~/.secrets
