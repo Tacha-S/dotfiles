@@ -23,7 +23,7 @@ repos:
     rev: v2.0.1
     hooks:
       - id: autopep8
-        args: [--global-config, /opt/work/.github/pyproject.toml, --in-place]
+        args: [--global-config, /opt/work/.github/pyproject.toml, --in-place, --ignore-local-config]
   - repo: https://github.com/pycqa/flake8
     rev: 6.0.0
     hooks:
