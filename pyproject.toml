@@ -29,7 +29,7 @@ SPLIT_BEFORE_ARITHMETIC_OPERATOR = true
 src = ["src", "."]
 line-length = 119
 select = ["ANN", "E", "F", "I", "N", "W", "D", "T", "CPY", "Q"]
-ignore = ["ANN002", "ANN003", "ANN1"]
+ignore = ["ANN002", "ANN003", "ANN1", "D100", "D104", "D417"]
 
 [tool.ruff.flake8-quotes]
 inline-quotes = "single"
