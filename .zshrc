@@ -261,23 +261,23 @@ else
         workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
         local package
         package=$(colcon list -n | fzf-tmux --query="$1" -1 -0) &&
-            colcon build --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-up-to $package
+            colcon --log-base=${workspace}/log build --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-up-to $package
     }
     cc() {
         workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
         local package
         package=$(colcon list -n | fzf-tmux --query="$1" -1 -0) &&
-            colcon clean packages --build-base=${workspace}/build --install-base=${workspace}/install --packages-select $package
+            colcon --log-base=${workspace}/log clean packages --build-base=${workspace}/build --install-base=${workspace}/install --packages-select $package
     }
     cbt() {
         workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
         this_package=$(colcon list -n)
-        colcon build --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-up-to $this_package
+        colcon --log-base=${workspace}/log build --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-up-to $this_package
     }
     cct() {
         workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
         this_package=$(colcon list -n)
-        colcon clean packages --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-select $this_package
+        colcon --log-base=${workspace}/log clean packages --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-select $this_package
     }
     rcd() {
         local package
@@ -302,7 +302,7 @@ else
     rni() {
         local node
         node=$(ros2 node list | fzf-tmux --query="$1" -1 -0) &&
-            ros2 node info $topic
+            ros2 node info $node
     }
 fi
 

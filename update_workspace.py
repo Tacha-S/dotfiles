@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
-import ast
 import json
 import pathlib
-import re
 
 workspaces_root = pathlib.Path('.').absolute().parent.parent
 srcs = workspaces_root / 'src'
@@ -17,16 +15,20 @@ for setup_file in srcs.glob('**/setup.py'):
         continue
     if (setup_file.parent / 'pyproject.toml').exists():
         pathlib.Path(setup_file.parent / 'pyproject.toml').unlink()
-    with open(setup_file, 'r') as f:
-        for line in f:
-            if 'package_dir' in line:
-                dirs = re.split('[=]', line)[-1].strip().strip(')')
-                if dirs.endswith(','):
-                    dirs = dirs[:-1]
-                package_dir = ast.literal_eval(dirs)
-                for k, v in package_dir.items():
-                    if k == '':
-                        my_extra_paths.append(str((setup_file.parent.absolute() / v)))
+    # with open(setup_file, 'r') as f:
+    #     for line in f:
+    #         if 'package_dir' in line:
+    #             dirs = re.split('[=]', line)[-1].strip().strip(')')
+    #             if dirs.endswith(','):
+    #                 dirs = dirs[:-1]
+    #             package_dir = ast.literal_eval(dirs)
+    #             for k, v in package_dir.items():
+    #                 if k == '':
+    #                     my_extra_paths.append(str((setup_file.parent.absolute() / v)))
+    my_extra_paths.append(str(setup_file.parent.absolute()))
+
+for msgs in (workspaces_root / 'install').glob('**/local/lib/python*/dist-packages'):
+    my_extra_paths.append(str(msgs))
 
 workspaces = list(workspaces_root.glob('*.code-workspace'))
 if not workspaces:
