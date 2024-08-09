@@ -96,11 +96,11 @@ if [[ $(lsb_release -cs) == "focal" ]]; then
   export ROSCONSOLE_FORMAT='[${severity}][${node}]: ${message}'
   export NO_ROS_PROMPT=1
 else
-  eval "$(register-python-argcomplete3 ros2)"
-  eval "$(register-python-argcomplete3 colcon)"
+  eval "$(register-python-argcomplete ros2)"
+  eval "$(register-python-argcomplete colcon)"
   source /usr/share/colcon_cd/function/colcon_cd.sh
   export RCUTILS_COLORIZED_OUTPUT=1
-  export ROS_LOCALHOST_ONLY=1
+  export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
   colcon () {
     workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
     /usr/bin/colcon --log-base=${workspace}/log $@
