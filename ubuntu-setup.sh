@@ -47,13 +47,13 @@ ssh-keygen -f ${HOME}/.ssh/id_rsa -t rsa -N ''
 gh ssh-key add ~/.ssh/id_rsa.pub
 gh auth setup-git
 
-# install cuda 12.1
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb
-sudo dpkg -i cuda-keyring_1.0-1_all.deb
+# install cuda 12.6
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
 sudo apt-get update
-sudo apt-get -y install cuda-12-1 libcudnn8 libcudnn8-dev
-sudo apt-mark hold cuda-12-1
-rm cuda-keyring_1.0-1_all.deb
+sudo apt-get -y install cuda-12-6
+sudo apt-mark hold cuda-12-6
+rm cuda-keyring_1.1-1_all.deb
 
 # install rye
 curl -sSf https://rye-up.com/get | RYE_INSTALL_OPTION="--yes" bash
