@@ -145,8 +145,6 @@ im-config -n fcitx
 fcitx &
 fcitx-imlist -e mozc
 
-sudo apt purge -y libomp-10-dev libomp5-10
-
 # NAS config
 echo NAS password:
 read password
