@@ -31,9 +31,13 @@ curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-contai
 curl -fsSL https://apt.llvm.org/llvm-snapshot.gpg.key | gpg --dearmor | sudo tee /usr/share/keyrings/llvm-snapshot.gpg > /dev/null
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/llvm-snapshot.gpg] http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-18 main" | sudo tee /etc/apt/sources.list.d/llvm.list > /dev/null
 
+# add wezterm repo
+curl -fsSL https://apt.fury.io/wez/gpg.key | gpg --yes --dearmor | sudo tee /usr/share/keyrings/wezterm-fury.gpg > /dev/null
+echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list > /dev/null
+
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-18 global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk fzf direnv
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-18 global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk fzf direnv wezterm
 
 sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-18 1
 
@@ -63,10 +67,6 @@ pip3 install flake8 pep8-naming flake8-coding flake8-copyright flake8-docstrings
 
 # install rust
 curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh -s -- -y
-
-# install wezterm
-curl -LO https://github.com/wez/wezterm/releases/download/20230320-124340-559cb7b0/wezterm-20230320-124340-559cb7b0.Ubuntu20.04.deb
-sudo apt install -y ./wezterm-20230320-124340-559cb7b0.Ubuntu20.04.deb
 
 # config docker
 sudo gpasswd -a ${USER} docker
