@@ -130,7 +130,7 @@ sudo snap install slack --classic
 curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
 # fix clock
-sudo hwclock -D --systohc --localtime
+sudo timedatectl set-ntp true
 
 cd ${HOME}/Documents
 gh repo clone noctuid/tdrop
