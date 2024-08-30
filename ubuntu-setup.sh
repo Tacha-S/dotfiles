@@ -56,7 +56,7 @@ sudo apt-mark hold cuda-12-6
 rm cuda-keyring_1.1-1_all.deb
 
 # install rye
-curl -sSf https://rye-up.com/get | RYE_INSTALL_OPTION="--yes" bash
+curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash
 
 # install python-package
 pip3 install flake8 pep8-naming flake8-coding flake8-copyright flake8-docstrings flake8-isort flake8-quotes platformio cmake-format isort yamlfixer-opt-nc pyproject-flake8
