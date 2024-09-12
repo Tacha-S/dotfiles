@@ -43,13 +43,13 @@ repos:
     hooks:
       - id: clang-format
   - repo: git@github.com:sbgisen/pre-commit-hooks.git
-    rev: v1.1.2
+    rev: v1.1.4
     hooks:
       - id: ros-clang-tidy
         # yamllint disable-line rule:line-length
         args: [--command, clang-tidy, --warnings-as-errors=*, --quiet, --config-file=/opt/work/.github/.clang-tidy]
   - repo: git@github.com:sbgisen/pre-commit-hooks.git
-    rev: v1.1.2
+    rev: v1.1.4
     hooks:
       - id: yamlfixer
         args: [-c, /opt/work/.github/.yamllint]
@@ -67,7 +67,7 @@ repos:
       - id: cmake-format
         args: [-c, /opt/work/.github/.cmake-format, --in-place]
   - repo: git@github.com:sbgisen/pre-commit-hooks.git
-    rev: v1.1.2
+    rev: v1.1.4
     hooks:
       - id: xmllint
         name: check launch files schema
@@ -77,12 +77,12 @@ repos:
           - "file"
         files: ^.*launch\/.*\.(launch|xml)$
   - repo: git@github.com:sbgisen/pre-commit-hooks.git
-    rev: v1.1.2
+    rev: v1.1.4
     hooks:
       - id: package_lint
         name: check package.xml schema
   - repo: git@github.com:sbgisen/pre-commit-hooks.git
-    rev: v1.1.2
+    rev: v1.1.4
     hooks:
       - id: xmllint
         name: xml format
@@ -93,12 +93,3 @@ repos:
         types_or:
           - "file"
         files: ^.*\.(launch|xml|xacro|urdf)$
-  - repo: git@github.com:sbgisen/pre-commit-hooks.git
-    rev: v1.1.2
-    hooks:
-      - id: catkin_lint
-        args:
-          - --config
-          - /opt/work/.github/.catkin_lint
-          - --strict
-          - "."
