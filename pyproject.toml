@@ -25,10 +25,13 @@ column_limit = 119
 DEDENT_CLOSING_BRACKETS = false
 SPLIT_BEFORE_ARITHMETIC_OPERATOR = true
 
+[tool.pyright]
+typeCheckingMode = "standard"
+
 [tool.ruff]
 src = ["src", "."]
 line-length = 119
-select = ["ANN", "E", "F", "I", "N", "W", "D", "T", "CPY", "Q"]
+select = ["ANN", "E", "F", "I", "N", "W", "T", "CPY", "Q"]
 ignore = ["ANN002", "ANN003", "ANN1", "D100", "D104", "D417"]
 
 [tool.ruff.flake8-quotes]
