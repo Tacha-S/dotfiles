@@ -27,7 +27,7 @@ for setup_file in srcs.glob('**/setup.py'):
     #                     my_extra_paths.append(str((setup_file.parent.absolute() / v)))
     my_extra_paths.append(str(setup_file.parent.absolute()))
 
-for msgs in (workspaces_root / 'install').glob('**/local/lib/python*/dist-packages'):
+for msgs in (workspaces_root / 'install').glob('**/lib/python*/site-packages'):
     my_extra_paths.append(str(msgs))
 
 workspaces = list(workspaces_root.glob('*.code-workspace'))
