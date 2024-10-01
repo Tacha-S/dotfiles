@@ -35,6 +35,10 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/llvm-
 curl -fsSL https://apt.fury.io/wez/gpg.key | gpg --yes --dearmor | sudo tee /usr/share/keyrings/wezterm-fury.gpg > /dev/null
 echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list > /dev/null
 
+# add wezterm repo
+curl -fsSL https://keys.anydesk.com/repos/DEB-GPG-KEY | gpg --yes --dearmor | sudo tee /usr/share/keyrings/anydesk.gpg > /dev/null
+echo 'deb [signed-by=/usr/share/keyrings/anydesk.gpg] http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk.list > /dev/null
+
 sudo apt update
 
 sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-18 global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk fzf direnv wezterm
