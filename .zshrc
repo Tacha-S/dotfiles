@@ -267,7 +267,7 @@ else
         workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
         local package
         package=$(colcon list -n | fzf-tmux --query="$1" -1 -0) &&
-            colcon --log-base=${workspace}/log clean packages --build-base=${workspace}/build --install-base=${workspace}/install --packages-select $package
+            colcon --log-base=${workspace}/log clean packages --build-base=${workspace}/build --install-base=${workspace}/install --log-base=${workspace}/log --packages-select $package
     }
     cbt() {
         workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
