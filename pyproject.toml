@@ -1,8 +1,9 @@
 [tool.isort]
-line_length = 119
-force_single_line = true
-known_third_party = ["launch"]
-src_paths = ["."]
+line_length = 99
+profile = "google"
+# force_single_line = true
+# known_third_party = ["launch"]
+# src_paths = ["."]
 
 [tool.flake8]
 aggressive = 2
@@ -20,8 +21,8 @@ ignore = "W503"
 aggressive = 2
 
 [tool.yapf]
-based_on_style = "pep8"
-column_limit = 119
+based_on_style = "google"
+column_limit = 99
 DEDENT_CLOSING_BRACKETS = false
 SPLIT_BEFORE_ARITHMETIC_OPERATOR = true
 
@@ -30,9 +31,27 @@ typeCheckingMode = "standard"
 
 [tool.ruff]
 src = ["src", "."]
-line-length = 119
-select = ["ANN", "E", "F", "I", "N", "W", "T", "CPY", "Q"]
-ignore = ["ANN002", "ANN003", "ANN1", "D100", "D104", "D417"]
+# line-length = 119
+line-length = 99
+# select = ["ANN", "E", "F", "I", "N", "W", "T", "CPY", "Q"]
+select = ["A", "ANN", "C", "E", "F", "N", "W", "Q", "D", "CPY"]
+# ignore = ["ANN002", "ANN003", "ANN1", "D100", "D104", "D417"]
+ignore = [
+    "ANN002",
+    "ANN003",
+    "ANN1",
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D106",
+    "D107",
+    "D203",
+    "D212",
+    "D404",
+]
 
 [tool.ruff.flake8-quotes]
 inline-quotes = "single"
@@ -43,9 +62,9 @@ convention = "google"
 [tool.ruff.flake8-copyright]
 notice-rgx = "# Copyright (c) [0-9]{4} SoftBank Corp.\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this file except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#     http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License."
 
-[tool.ruff.isort]
-known-third-party = ["launch"]
-force-single-line = true
+# [tool.ruff.isort]
+# known-third-party = ["launch"]
+# force-single-line = true
 
 [tool.ruff.flake8-annotations]
 suppress-dummy-args = true
