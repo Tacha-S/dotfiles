@@ -105,6 +105,7 @@ else
     workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
     /usr/bin/colcon --log-base=${workspace}/log $@
   }
+  alias rka="ps aux | grep ros | grep -v grep | awk '{print \$2}' | xargs kill -9 && ps aux | grep gz | grep -v grep | awk '{print \$2}' | xargs kill -9"
 fi
 alias rdi='rosdep install --from-paths . -yir --rosdistro=${ROS_DISTRO}'
 
