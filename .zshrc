@@ -100,6 +100,9 @@ else
   eval "$(register-python-argcomplete colcon)"
   source /usr/share/colcon_cd/function/colcon_cd.sh
   export RCUTILS_COLORIZED_OUTPUT=1
+  export RCUTILS_CONSOLE_OUTPUT_FORMAT="[{severity}] [{name}({file_name}:{line_number})]: {message}"
+  export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+  export CYCLONEDDS_URI=file://${HOME}/cyclonedds.xml
   export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
   colcon () {
     workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
