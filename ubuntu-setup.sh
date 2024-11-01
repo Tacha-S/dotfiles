@@ -41,7 +41,7 @@ echo 'deb [signed-by=/usr/share/keyrings/anydesk.gpg] http://deb.anydesk.com/ al
 
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-18 global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk fzf direnv wezterm
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-18 global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk fzf direnv wezterm pre-commit
 
 sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-18 1
 
@@ -65,9 +65,7 @@ rm cuda-keyring_1.1-1_all.deb
 
 # install rye
 curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash
-
-# install python-package
-pip3 install flake8 pep8-naming flake8-coding flake8-copyright flake8-docstrings flake8-isort flake8-quotes platformio cmake-format isort yamlfixer-opt-nc pyproject-flake8
+rye tools install isort yapf cmake-format platformio yamlfixer-opt-nc
 
 # install rust
 curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh -s -- -y
