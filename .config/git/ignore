@@ -16,10 +16,6 @@ cmake-build-debug/
 # vscode
 .vscode
 
-# config
-setup.cfg
-pyproject.toml
-
 # direnv
 .envrc
 
