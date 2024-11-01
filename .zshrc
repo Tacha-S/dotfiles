@@ -115,20 +115,6 @@ alias rdi='rosdep install --from-paths . -yir --rosdistro=${ROS_DISTRO}'
 
 export PATH=$PATH:~/.local/bin
 
-# pipenv
-if type pipenv >/dev/null 2>&1; then
-  export WORKON_HOME=~/.venvs
-  export PIPENV_VENV_IN_PROJECT=1
-  eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
-fi
-
-# pyenv
-export PYENV_ROOT="${HOME}/.pyenv"
-if [ -d "${PYENV_ROOT}" ]; then
-  export PATH=${PYENV_ROOT}/bin:$PATH
-  eval "$(pyenv init -)"
-fi
-
 #rye
 source "$HOME/.rye/env"
 rye self completion > ~/.zsh/completions/rye.zsh
