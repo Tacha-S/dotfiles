@@ -105,7 +105,7 @@ else
   export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
   export CYCLONEDDS_URI=file://$HOME/cyclonedds.xml
   #export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
-  export ROS_DOMAIN_ID=10
+  export ROS_DOMAIN_ID=66
   colcon () {
     workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
     /usr/bin/colcon --log-base=${workspace}/log $@

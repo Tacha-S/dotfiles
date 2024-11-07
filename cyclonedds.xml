@@ -20,7 +20,7 @@
     </Discovery>
   </Domain>
   <!-- Static discovery -->
-  <Domain id="11">
+  <Domain id="67">
     <General>
       <Interfaces>
         <NetworkInterface autodetermine="false" name="enp5s0" priority="default" multicast="default"/>
@@ -39,7 +39,7 @@
     </Discovery>
   </Domain>
   <!-- Auto discovery -->
-  <Domain id="12">
+  <Domain id="68">
     <General>
       <Interfaces>
         <NetworkInterface autodetermine="true" name="enp5s0" priority="default" multicast="default"/>
