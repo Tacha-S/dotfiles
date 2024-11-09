@@ -249,6 +249,10 @@ else
         workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
         colcon --log-base=${workspace}/log clean workspace --build-base=${workspace}/build --install-base=${workspace}/install
     }
+    cta() {
+        workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
+        colcon --log-base=${workspace}/log test --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src
+    }
     cb() {
         workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
         local package
@@ -261,15 +265,23 @@ else
         package=$(colcon list -n | fzf-tmux --query="$1" -1 -0) &&
             colcon --log-base=${workspace}/log clean packages --build-base=${workspace}/build --install-base=${workspace}/install --log-base=${workspace}/log --packages-select $package
     }
+    ct() {
+        workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
+        local package
+        package=$(colcon list -n | fzf-tmux --query="$1" -1 -0) &&
+            colcon --log-base=${workspace}/log test --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-up-to $package
+    }
     cbt() {
         workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
-        this_package=$(colcon list -n)
-        colcon --log-base=${workspace}/log build --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-up-to $this_package
+        local package
+        package=$(colcon list -n | fzf-tmux --query="$1" -1 -0) &&
+            colcon --log-base=${workspace}/log build --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-select $package
     }
-    cct() {
+    ctt() {
         workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
-        this_package=$(colcon list -n)
-        colcon --log-base=${workspace}/log clean packages --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-select $this_package
+        local package
+        package=$(colcon list -n | fzf-tmux --query="$1" -1 -0) &&
+            colcon --log-base=${workspace}/log test --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-select $package
     }
     rcd() {
         local package
