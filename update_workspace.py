@@ -13,8 +13,6 @@ for setup_file in srcs.glob('**/setup.py'):
         continue
     if (setup_file.parent / 'CATKIN_IGNORE').exists():
         continue
-    if (setup_file.parent / 'pyproject.toml').exists():
-        pathlib.Path(setup_file.parent / 'pyproject.toml').unlink()
     # with open(setup_file, 'r') as f:
     #     for line in f:
     #         if 'package_dir' in line:
