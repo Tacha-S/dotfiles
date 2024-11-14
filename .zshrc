@@ -101,6 +101,7 @@ else
   source /usr/share/colcon_cd/function/colcon_cd.sh
   export RCUTILS_COLORIZED_OUTPUT=1
   export RCUTILS_CONSOLE_OUTPUT_FORMAT="[{severity}][{name}]: {message}"
+#   export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 #   export RMW_IMPLEMENTATION=rmw_zenoh_cpp
   export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
   export ZENOH_ROUTER_CONFIG_URI=$HOME/zenoh_router_config.json5
