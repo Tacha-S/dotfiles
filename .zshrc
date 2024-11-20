@@ -287,6 +287,12 @@ else
         package=$(colcon list -n | fzf-tmux --query="$1" -1 -0) &&
             colcon --log-base=${workspace}/log test --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-select $package
     }
+    ct-r() {
+        workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
+        local package
+        package=$(colcon list -n | fzf-tmux --query="$1" -1 -0) &&
+            colcon --log-base=${workspace}/log test-result --test-result-base ${workspace}/build/$package --verbose
+    }
     rcd() {
         local package
         package=$(colcon list -n | fzf-tmux --query="$1" -1 -0) &&
@@ -312,6 +318,66 @@ else
         node=$(ros2 node list | fzf-tmux --query="$1" -1 -0) &&
             ros2 node info $node
     }
+
+    fzf-ros() {
+        local selection
+        selection=$(echo -e "cba\ncca\ncta\ncb\ncc\nct\ncbt\nctt\nrcd\nrte\nrth\nrti\nrni" | fzf-tmux --query="$LBUFFER" --preview-window=up:50% --height=50%)
+        if [[ -n "$selection" ]]; then
+            workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
+            if [[ "$selection" == "cba" ]]; then
+                BUFFER="colcon --log-base=${workspace}/log build --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src"
+            elif [[ "$selection" == "cca" ]]; then
+                BUFFER="colcon --log-base=${workspace}/log clean workspace --build-base=${workspace}/build --install-base=${workspace}/install"
+            elif [[ "$selection" == "cta" ]]; then
+                BUFFER="colcon --log-base=${workspace}/log test --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src"
+            elif [[ "$selection" == "cb" ]]; then
+                local package
+                package=$(colcon list -n | fzf-tmux --query="$1" -1 -0)
+                BUFFER="colcon --log-base=${workspace}/log build --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-up-to $package"
+            elif [[ "$selection" == "cc" ]]; then
+                local package
+                package=$(colcon list -n | fzf-tmux --query="$1" -1 -0)
+                BUFFER="colcon --log-base=${workspace}/log clean packages --build-base=${workspace}/build --install-base=${workspace}/install --log-base=${workspace}/log --packages-select $package"
+            elif [[ "$selection" == "ct" ]]; then
+                local package
+                package=$(colcon list -n | fzf-tmux --query="$1" -1 -0)
+                BUFFER="colcon --log-base=${workspace}/log test --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-up-to $package"
+            elif [[ "$selection" == "cbt" ]]; then
+                local package
+                package=$(colcon list -n | fzf-tmux --query="$1" -1 -0)
+                BUFFER="colcon --log-base=${workspace}/log build --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-select $package"
+            elif [[ "$selection" == "ctt" ]]; then
+                local package
+                package=$(colcon list -n | fzf-tmux --query="$1" -1 -0)
+                BUFFER="colcon --log-base=${workspace}/log test --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src --packages-select $package"
+            elif [[ "$selection" == "rcd" ]]; then
+                local package
+                package=$(colcon list -n | fzf-tmux --query="$1" -1 -0)
+                BUFFER="colcon_cd $package"
+            elif [[ "$selection" == "rte" ]]; then
+                local topic
+                topic=$(ros2 topic list | fzf-tmux --query="$1" -1 -0)
+                BUFFER="ros2 topic echo $topic"
+                CURSOR=${#BUFFER}
+            elif [[ "$selection" == "rth" ]]; then
+                local topic
+                topic=$(ros2 topic list | fzf-tmux --query="$1" -1 -0)
+                BUFFER="ros2 topic hz $topic"
+                CURSOR=${#BUFFER}
+            elif [[ "$selection" == "rti" ]]; then
+                local topic
+                topic=$(ros2 topic list | fzf-tmux --query="$1" -1 -0)
+                BUFFER="ros2 topic info $topic"
+            elif [[ "$selection" == "rni" ]]; then
+                local node
+                node=$(ros2 node list | fzf-tmux --query="$1" -1 -0)
+                BUFFER="ros2 node info $node"
+            fi
+            CURSOR=${#BUFFER}
+        fi
+    }
+    zle -N fzf-ros
+    bindkey "^e" fzf-ros
 fi
 
 export LIBDYNAMIXEL=/usr/local
