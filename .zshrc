@@ -251,7 +251,7 @@ else
     }
     cca() {
         workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
-        colcon --log-base=${workspace}/log clean workspace --build-base=${workspace}/build --install-base=${workspace}/install
+        colcon clean workspace --log-base=${workspace}/log --build-base=${workspace}/build --install-base=${workspace}/install
     }
     cta() {
         workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
@@ -327,7 +327,7 @@ else
             if [[ "$selection" == "cba" ]]; then
                 BUFFER="colcon --log-base=${workspace}/log build --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src"
             elif [[ "$selection" == "cca" ]]; then
-                BUFFER="colcon --log-base=${workspace}/log clean workspace --build-base=${workspace}/build --install-base=${workspace}/install"
+                BUFFER="colcon clean workspace --log-base=${workspace}/log --build-base=${workspace}/build --install-base=${workspace}/install"
             elif [[ "$selection" == "cta" ]]; then
                 BUFFER="colcon --log-base=${workspace}/log test --build-base=${workspace}/build --install-base=${workspace}/install --base-paths=${workspace}/src"
             elif [[ "$selection" == "cb" ]]; then
