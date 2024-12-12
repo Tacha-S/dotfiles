@@ -41,7 +41,7 @@ echo 'deb [signed-by=/usr/share/keyrings/anydesk.gpg] http://deb.anydesk.com/ al
 
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-18 global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk fzf direnv wezterm pre-commit
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-18 global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk fzf direnv wezterm pre-commit ccache
 
 sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-18 1
 
