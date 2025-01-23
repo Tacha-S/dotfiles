@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CycloneDDS xmlns="https://cdds.io/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="https://cdds.io/confighttps://raw.githubusercontent.com/eclipse-cyclonedds/cyclonedds/master/etc/cyclonedds.xsd">
+  xsi:schemaLocation="https://cdds.io/config https://raw.githubusercontent.com/eclipse-cyclonedds/cyclonedds/master/etc/cyclonedds.xsd">
   <!-- localhost only -->
-  <Domain id="any">
+  <Domain id="66">
     <General>
       <Interfaces>
         <NetworkInterface autodetermine="false" name="lo" priority="default" multicast="false"/>
@@ -26,6 +26,7 @@
     <General>
       <Interfaces>
         <NetworkInterface autodetermine="false" name="enp5s0" priority="default" multicast="default"/>
+        <NetworkInterface autodetermine="false" name="lo" priority="default" multicast="default"/>
       </Interfaces>
       <AllowMulticast>default</AllowMulticast>
       <MaxMessageSize>65500B</MaxMessageSize>
@@ -34,6 +35,8 @@
       <SocketReceiveBufferSize min="16MB"/>
     </Internal>
     <Discovery>
+      <ParticipantIndex>auto</ParticipantIndex>
+      <MaxAutoParticipantIndex>10000</MaxAutoParticipantIndex>
       <Peers>
         <Peer address="localhost"/>
         <!-- <Peer address="192.168.1.10"/> -->

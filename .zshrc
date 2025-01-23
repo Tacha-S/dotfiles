@@ -109,7 +109,7 @@ else
   export CYCLONEDDS_URI=file://$HOME/cyclonedds.xml
   export FASTDDS_DEFAULT_PROFILES_FILE=$HOME/fastdds.xml
   #export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
-  export ROS_DOMAIN_ID=66
+  export ROS_DOMAIN_ID=67
   colcon () {
     workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
     /usr/bin/colcon --log-base=${workspace}/log $@
