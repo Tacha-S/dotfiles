@@ -367,7 +367,7 @@ else
             elif [[ "$selection" == "rti" ]]; then
                 local topic
                 topic=$(ros2 topic list | fzf-tmux --query="$1" -1 -0)
-                BUFFER="ros2 topic info $topic"
+                BUFFER="ros2 topic info -v $topic"
             elif [[ "$selection" == "rni" ]]; then
                 local node
                 node=$(ros2 node list | fzf-tmux --query="$1" -1 -0)
