@@ -1,9 +1,6 @@
 #!/bin/bash -eu
 sudo apt install -y software-properties-common apt-transport-https curl ca-certificates
 
-# add git repo
-sudo add-apt-repository -y ppa:git-core/ppa
-
 # add github cli repo
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/githubcli-archive-keyring.gpg > /dev/null
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
@@ -27,23 +24,17 @@ curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-contai
   sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
   sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list > /dev/null
 
-# add clangd 18 repo
-curl -fsSL https://apt.llvm.org/llvm-snapshot.gpg.key | gpg --dearmor | sudo tee /usr/share/keyrings/llvm-snapshot.gpg > /dev/null
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/llvm-snapshot.gpg] http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-18 main" | sudo tee /etc/apt/sources.list.d/llvm.list > /dev/null
-
 # add wezterm repo
 curl -fsSL https://apt.fury.io/wez/gpg.key | gpg --yes --dearmor | sudo tee /usr/share/keyrings/wezterm-fury.gpg > /dev/null
 echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list > /dev/null
 
-# add wezterm repo
+# add anydesk repo
 curl -fsSL https://keys.anydesk.com/repos/DEB-GPG-KEY | gpg --yes --dearmor | sudo tee /usr/share/keyrings/anydesk.gpg > /dev/null
 echo 'deb [signed-by=/usr/share/keyrings/anydesk.gpg] http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk.list > /dev/null
 
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd-18 global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk fzf direnv wezterm pre-commit ccache
-
-sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-18 1
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk fzf direnv wezterm pre-commit ccache
 
 # config github-cli
 gh completion -s zsh > _gh
@@ -138,7 +129,8 @@ sudo timedatectl set-ntp true
 cd ${HOME}/Documents
 gh repo clone noctuid/tdrop
 cd tdrop
-sudo checkinstall -y --pkgname=tdrop --default
+sudo checkinstall -y --pkgname=tdrop --default --install=no
+sudo dpkg -i tdrop_*.deb
 
 # purge packages
 sudo apt purge -y apport
