@@ -122,7 +122,6 @@ export PATH=$PATH:~/.local/bin
 
 #rye
 export PATH="$PATH:$HOME/.rye/shims"
-rye self completion > ~/.zsh/completions/rye.zsh
 
 # rust
 source ~/.cargo/env
