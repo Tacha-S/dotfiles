@@ -54,10 +54,10 @@ sudo apt-get -y install cuda-12-6
 sudo apt-mark hold cuda-12-6
 rm cuda-keyring_1.1-1_all.deb
 
-# install rye
-curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash
-${HOME}/.rye/shims/rye self completion -s zsh > ~/.zsh/completions/_rye
-${HOME}/.rye/shims/rye tools install isort yapf cmakelang platformio yamlfixer-opt-nc clangd-tidy compdb ruff
+# install uv
+wget -qO- https://astral.sh/uv/install.sh | sh
+${HOME}/.local/bin/uv generate-shell-completion zsh > ~/.zsh/completions/_uv
+${HOME}/.local/bin/uv tool install isort yapf cmakelang platformio yamlfixer-opt-nc clangd-tidy compdb ruff
 
 # install rust
 curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh -s -- -y
