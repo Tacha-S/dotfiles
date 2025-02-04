@@ -317,10 +317,14 @@ else
         node=$(ros2 node list | fzf-tmux --query="$1" -1 -0) &&
             ros2 node info $node
     }
+    alias rtl='ros2 topic list'
+    alias rnl='ros2 node list'
+    alias ral='ros2 action list'
+    alias rsl='ros2 service list'
 
     fzf-ros() {
         local selection
-        selection=$(echo -e "cba\ncca\ncta\ncb\ncc\nct\ncbt\nctt\nrcd\nrte\nrth\nrti\nrni" | fzf-tmux --query="$LBUFFER" --preview-window=up:50% --height=50%)
+        selection=$(echo -e "cba\ncca\ncta\ncb\ncc\nct\ncbt\nctt\nrcd\nrte\nrth\nrti\nrni\nrtl\nrnl\nral\nrsl" | fzf-tmux --query="$LBUFFER" --preview-window=up:50% --height=50%)
         if [[ -n "$selection" ]]; then
             workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
             if [[ "$selection" == "cba" ]]; then
@@ -371,6 +375,14 @@ else
                 local node
                 node=$(ros2 node list | fzf-tmux --query="$1" -1 -0)
                 BUFFER="ros2 node info $node"
+            elif [[ "$selection" == "rtl" ]]; then
+                BUFFER="ros2 topic list"
+            elif [[ "$selection" == "rnl" ]]; then
+                BUFFER="ros2 node list"
+            elif [[ "$selection" == "ral" ]]; then
+                BUFFER="ros2 action list"
+            elif [[ "$selection" == "rsl" ]]; then
+                BUFFER="ros2 service list"
             fi
             CURSOR=${#BUFFER}
         fi
