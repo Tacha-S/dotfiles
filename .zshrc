@@ -321,6 +321,7 @@ else
     alias rnl='ros2 node list'
     alias ral='ros2 action list'
     alias rsl='ros2 service list'
+    alias rcl='ros2 component list'
 
     fzf-ros() {
         local selection
@@ -391,7 +392,5 @@ else
     bindkey "^e" fzf-ros
 fi
 
-export LIBDYNAMIXEL=/usr/local
-export SPEAKER=true
 export MYPYPATH=""
 source ~/.secrets

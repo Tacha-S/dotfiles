@@ -62,6 +62,10 @@ ${HOME}/.local/bin/uv tool install isort yapf cmakelang platformio yamlfixer-opt
 # install rust
 curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh -s -- -y
 
+# install rv
+wget -qO ${HOME}/.local/bin/rv https://github.com/ErickKramer/ripvcs/releases/download/v0.1.3/rv
+chmod +x ${HOME}/.local/bin/rv
+
 # config docker
 sudo gpasswd -a ${USER} docker
 sudo chmod 666 /var/run/docker.sock
