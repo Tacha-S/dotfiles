@@ -32,9 +32,13 @@ echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/w
 curl -fsSL https://keys.anydesk.com/repos/DEB-GPG-KEY | gpg --yes --dearmor | sudo tee /usr/share/keyrings/anydesk.gpg > /dev/null
 echo 'deb [signed-by=/usr/share/keyrings/anydesk.gpg] http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk.list > /dev/null
 
+# add eza repo
+curl -fsSL https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | gpg --yes --dearmor | sudo tee /usr/share/keyrings/gierens.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list > /dev/null
+
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache bat fd-find eza ripgrep
 
 # config github-cli
 gh completion -s zsh > _gh
@@ -65,6 +69,13 @@ curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh -s -- -y
 # install rv
 wget -qO ${HOME}/.local/bin/rv https://github.com/ErickKramer/ripvcs/releases/download/v0.1.3/rv
 chmod +x ${HOME}/.local/bin/rv
+
+# install volta
+curl https://get.volta.sh | bash
+
+# link binaries
+ln -s /usr/bin/batcat ~/.local/bin/bat
+ln -s $(which fdfind) ~/.local/bin/fd
 
 # config docker
 sudo gpasswd -a ${USER} docker
@@ -121,11 +132,12 @@ gsettings set org.gnome.desktop.interface monospace-font-name 'Source Han Code J
 mkdir -p ~/.vim/bundle
 gh repo clone Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 
+# install fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
-# install slack
-sudo snap install slack --classic
+# install snap packages
+sudo snap install slack dust procs
 
 # install starship
 curl -sS https://starship.rs/install.sh | sh -s -- --yes

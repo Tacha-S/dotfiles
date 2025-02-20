@@ -123,6 +123,10 @@ export PATH=$PATH:~/.local/bin
 #rye
 export PATH="$PATH:$HOME/.rye/shims"
 
+# volta
+export VOLTA_HOME=$HOME/.volta
+export PATH=$PATH:$VOLTA_HOME/bin
+
 # rust
 source ~/.cargo/env
 
