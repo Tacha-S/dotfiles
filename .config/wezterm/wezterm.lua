@@ -6,6 +6,7 @@ return {
   font_dirs = {'/usr/share/fonts/opentype'},
   font = wezterm.font_with_fallback {{family = 'Source Han Code JP M', weight = 'Medium'}, {family = 'Symbols Nerd Font', weight = 'Medium'}},
   font_size = 14.0,
+  use_ime = true,
 
   leader = { key="q", mods="CTRL" },
   keys = {
