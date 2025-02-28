@@ -19,11 +19,10 @@ cmake-build-debug/
 # direnv
 .envrc
 
-# rye
-requirements-dev.lock
-requirements.lock
+# uv
 .python-version
 .venv
+uv.lock
 
 
 .secrets
