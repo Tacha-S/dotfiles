@@ -38,7 +38,7 @@ echo "deb [signed-by=/usr/share/keyrings/gierens.gpg] http://deb.gierens.de stab
 
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache bat fd-find eza ripgrep
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache bat fd-find eza ripgrep checkinstall
 
 # config github-cli
 gh completion -s zsh > _gh
@@ -61,7 +61,7 @@ rm cuda-keyring_1.1-1_all.deb
 # install uv
 wget -qO- https://astral.sh/uv/install.sh | sh
 ${HOME}/.local/bin/uv generate-shell-completion zsh > ~/.zsh/completions/_uv
-${HOME}/.local/bin/uv tool install isort yapf cmakelang platformio yamlfixer-opt-nc clangd-tidy compdb ruff
+echo "isort yapf cmakelang platformio yamlfixer-opt-nc clangd-tidy compdb ruff" | xargs -n1 ${HOME}/.local/bin/uv tool install
 
 # install rust
 curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh -s -- -y
@@ -137,14 +137,16 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
 # install snap packages
-sudo snap install slack dust procs
+sudo snap install slack dust procs foxglove-studio
 
 # install starship
 curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
 # fix clock
-sudo timedatectl set-ntp true
+sudo timedatectl set-local-rtc 1
 
+sudo mkdir -p /usr/local/share/man/man1
+sudo mkdir -p /usr/local/share/licenses/tdrop
 cd ${HOME}/Documents
 gh repo clone noctuid/tdrop
 cd tdrop
@@ -163,7 +165,7 @@ fcitx-imlist -e mozc
 echo NAS password:
 read password
 echo "/nas -fstype=cifs,rw,username=gisen,password=$password,uid=1000,gid=1000 ://robotics-nas/Public" | sudo tee /etc/auto.nas
-echo "/bag -fstype=cifs,rw,username=gisen,password=$password,uid=1000,gid=1000 ://rosbag-nas/Public" | sudo tee /etc/auto.nas
-echo "/media-nas -fstype=cifs,rw,username=gisen,password=$password,uid=1000,gid=1000 ://media-nas/Public" | sudo tee /etc/auto.nas
+echo "/bag -fstype=cifs,rw,username=gisen,password=$password,uid=1000,gid=1000 ://rosbag-nas/Public" | sudo tee -a /etc/auto.nas
+echo "/media-nas -fstype=cifs,rw,username=gisen,password=$password,uid=1000,gid=1000 ://media-nas/Public" | sudo tee -a /etc/auto.nas
 sudo sed -i -e "s:^+auto.master$:#+auto.master\n/- /etc/auto.nas --timeout 60:g" /etc/auto.master
 sudo service autofs restart
