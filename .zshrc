@@ -76,10 +76,9 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/s
 
 
 # alias
-alias ls='ls --color=auto'
-alias lla='ls -la --color=auto'
-alias ll='ls -l --color=auto'
-alias la='ls -a --color=auto'
+alias ls='eza'
+alias lla='eza -la'
+alias lt='eza -T'
 alias grep='grep --color=auto'
 alias df='df -h'
 alias rsync='rsync -rltD --progress'
@@ -119,9 +118,6 @@ fi
 alias rdi='rosdep install --from-paths . -yir --rosdistro=${ROS_DISTRO}'
 
 export PATH=$PATH:~/.local/bin
-
-#rye
-export PATH="$PATH:$HOME/.rye/shims"
 
 # volta
 export VOLTA_HOME=$HOME/.volta
@@ -329,7 +325,7 @@ else
 
     fzf-ros() {
         local selection
-        selection=$(echo -e "cba\ncca\ncta\ncb\ncc\nct\ncbt\nctt\nrcd\nrte\nrth\nrti\nrni\nrtl\nrnl\nral\nrsl" | fzf-tmux --query="$LBUFFER" --preview-window=up:50% --height=50%)
+        selection=$(echo -e "cba\ncca\ncta\ncb\ncc\nct\ncbt\nctt\nrcd\nrte\nrth\nrti\nrni\nrtl\nrnl\nral\nrsl\nrpd\nrpg\nrpl" | fzf-tmux --query="$LBUFFER" --preview-window=up:50% --height=50%)
         if [[ -n "$selection" ]]; then
             workspace=`dirname $(direnv status | grep "Loaded RC path" | awk '{print $4}')`
             if [[ "$selection" == "cba" ]]; then
@@ -383,11 +379,23 @@ else
             elif [[ "$selection" == "rtl" ]]; then
                 BUFFER="ros2 topic list"
             elif [[ "$selection" == "rnl" ]]; then
-                BUFFER="ros2 node list"
+                BUFFER="ros2 node list | grep -vE '_[0-9]+$|_impl|_private'"
             elif [[ "$selection" == "ral" ]]; then
                 BUFFER="ros2 action list"
             elif [[ "$selection" == "rsl" ]]; then
-                BUFFER="ros2 service list"
+                BUFFER="ros2 service list | grep -vE '/get_parameters|/set_parameters|/list_parameters|/describe_parameters|/parameter_events|/get_type_description|/get_parameter_types|/set_logger_levels|/get_logger_levels|/get_transition_graph|/change_state|/get_available_states|/get_available_transitions|/get_state'"
+            elif [[ "$selection" == "rpd" ]]; then
+                local node
+                node=$(ros2 node list | fzf-tmux --query="$1" -1 -0)
+                BUFFER="ros2 param dump $node"
+            elif [[ "$selection" == "rpg" ]]; then
+                local node
+                node=$(ros2 node list | fzf-tmux --query="$1" -1 -0)
+                BUFFER="ros2 param get $node"
+            elif [[ "$selection" == "rpl" ]]; then
+                local node
+                node=$(ros2 node list | fzf-tmux --query="$1" -1 -0)
+                BUFFER="ros2 param list $node"
             fi
             CURSOR=${#BUFFER}
         fi
