@@ -67,7 +67,7 @@ echo "isort yapf cmakelang platformio yamlfixer-opt-nc clangd-tidy compdb ruff" 
 curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh -s -- -y
 
 # install rv
-wget -qO ${HOME}/.local/bin/rv https://github.com/ErickKramer/ripvcs/releases/download/v0.1.3/rv
+wget -qO ${HOME}/.local/bin/rv https://github.com/ErickKramer/ripvcs/releases/download/v1.0.1/ripvcs_1.0.1_linux_amd64
 chmod +x ${HOME}/.local/bin/rv
 
 # install volta
