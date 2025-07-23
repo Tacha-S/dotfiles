@@ -62,6 +62,7 @@ rm cuda-keyring_1.1-1_all.deb
 wget -qO- https://astral.sh/uv/install.sh | sh
 ${HOME}/.local/bin/uv generate-shell-completion zsh > ~/.zsh/completions/_uv
 echo "isort yapf cmakelang platformio yamlfixer-opt-nc clangd-tidy compdb ruff" | xargs -n1 ${HOME}/.local/bin/uv tool install
+${HOME}/.local/bin/uv python pin --global 3.12
 
 # install rust
 curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh -s -- -y
