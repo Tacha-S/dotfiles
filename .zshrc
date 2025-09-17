@@ -101,8 +101,8 @@ else
   export RCUTILS_COLORIZED_OUTPUT=1
   export RCUTILS_CONSOLE_OUTPUT_FORMAT="[{severity}][{name}]: {message}"
 #   export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-#   export RMW_IMPLEMENTATION=rmw_zenoh_cpp
-  export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+  export RMW_IMPLEMENTATION=rmw_zenoh_cpp
+#   export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
   export ZENOH_ROUTER_CONFIG_URI=$HOME/zenoh_router_config.json5
   export ZENOH_SESSION_CONFIG_URI=$HOME/zenoh_session_config.json5
   export CYCLONEDDS_URI=file://$HOME/cyclonedds.xml
