@@ -36,9 +36,13 @@ echo 'deb [signed-by=/usr/share/keyrings/anydesk.gpg] http://deb.anydesk.com/ al
 curl -fsSL https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | gpg --yes --dearmor | sudo tee /usr/share/keyrings/gierens.gpg > /dev/null
 echo "deb [signed-by=/usr/share/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list > /dev/null
 
+# add ngrok repo
+curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc | gpg --yes --dearmor | sudo tee /usr/share/keyrings/ngrok.gpg >/dev/null
+echo "deb [signed-by=/usr/share/keyrings/ngrok.gpg] https://ngrok-agent.s3.amazonaws.com bookworm main" | sudo tee /etc/apt/sources.list.d/ngrok.list >/dev/null
+
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx5-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache bat fd-find eza ripgrep checkinstall
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx5-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache bat fd-find eza ripgrep checkinstall ngrok
 
 # config github-cli
 gh completion -s zsh > _gh
