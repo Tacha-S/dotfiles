@@ -40,9 +40,14 @@ echo "deb [signed-by=/usr/share/keyrings/gierens.gpg] http://deb.gierens.de stab
 curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc | gpg --yes --dearmor | sudo tee /usr/share/keyrings/ngrok.gpg >/dev/null
 echo "deb [signed-by=/usr/share/keyrings/ngrok.gpg] https://ngrok-agent.s3.amazonaws.com bookworm main" | sudo tee /etc/apt/sources.list.d/ngrok.list >/dev/null
 
+curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | gpg --yes --dearmor |
+  sudo tee /usr/share/keyrings/antigravity-repo-key.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
+  sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
+
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx5-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache bat fd-find eza ripgrep checkinstall ngrok
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx5-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache bat fd-find eza ripgrep checkinstall ngrok antigravity
 
 # config github-cli
 gh completion -s zsh > _gh
