@@ -36,6 +36,9 @@ setopt pushd_ignore_dups
 
 # save history
 HISTFILE=~/.zsh_history
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+  HISTFILE=~/.zsh_agent_history
+fi
 # save size
 HISTSIZE=100000
 SAVEHIST=100000
