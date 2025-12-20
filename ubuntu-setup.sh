@@ -40,6 +40,7 @@ echo "deb [signed-by=/usr/share/keyrings/gierens.gpg] http://deb.gierens.de stab
 curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc | gpg --yes --dearmor | sudo tee /usr/share/keyrings/ngrok.gpg >/dev/null
 echo "deb [signed-by=/usr/share/keyrings/ngrok.gpg] https://ngrok-agent.s3.amazonaws.com bookworm main" | sudo tee /etc/apt/sources.list.d/ngrok.list >/dev/null
 
+# add antigravity repo
 curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | gpg --yes --dearmor |
   sudo tee /usr/share/keyrings/antigravity-repo-key.gpg > /dev/null
 echo "deb [signed-by=/usr/share/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
