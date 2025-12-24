@@ -24,6 +24,7 @@ $python\
 ${custom.direnv}\
 ${custom.ros}\
 ${custom.ros_domain}\
+${custom.rmw}\
 $time"""
 
 [username]
@@ -119,3 +120,9 @@ command = "echo $ROS_DOMAIN_ID"
 when = ''' [ ! -z $ROS_DOMAIN_ID ] '''
 format = '[$symbol$output ]($style)'
 symbol = '󰇗 '
+
+[custom.rmw]
+command = "echo $RMW_IMPLEMENTATION | sed 's/^rmw_//; s/_cpp$//'"
+when = ''' [ ! -z $RMW_IMPLEMENTATION ] '''
+format = '[$symbol$output ]($style)'
+symbol = '󰒓 '
