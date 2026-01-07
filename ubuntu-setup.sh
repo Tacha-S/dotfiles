@@ -60,12 +60,11 @@ ssh-keygen -f ${HOME}/.ssh/id_rsa -t rsa -N ''
 gh ssh-key add ~/.ssh/id_rsa.pub
 gh auth setup-git
 
-# install cuda 12.8
+# install cuda 13-1
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
 sudo dpkg -i cuda-keyring_1.1-1_all.deb
 sudo apt-get update
-sudo apt-get -y install cuda-12-8
-sudo apt-mark hold cuda-12-8
+sudo apt-get -y install cuda-13-1 cuda-drivers
 rm cuda-keyring_1.1-1_all.deb
 
 # install uv
