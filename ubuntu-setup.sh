@@ -69,16 +69,20 @@ rm cuda-keyring_1.1-1_all.deb
 
 # install uv
 wget -qO- https://astral.sh/uv/install.sh | sh
+mkdir -p ~/.zsh/completions
 ${HOME}/.local/bin/uv generate-shell-completion zsh > ~/.zsh/completions/_uv
 echo "isort yapf cmakelang platformio yamlfixer-opt-nc clangd-tidy compdb ruff" | xargs -n1 ${HOME}/.local/bin/uv tool install
 ${HOME}/.local/bin/uv python pin --global 3.12
 
 # install rust
 curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh -s -- -y
+rustup completions zsh > ~/.zsh/completions/_rustup
+rustup completions zsh cargo > ~/.zsh/completions/_cargo
 
 # install rv
 wget -qO ${HOME}/.local/bin/rv https://github.com/ErickKramer/ripvcs/releases/download/v1.0.2/ripvcs_1.0.2_linux_amd64
 chmod +x ${HOME}/.local/bin/rv
+rv completion zsh > ~/.zsh/completions/_rv
 
 # install volta
 curl https://get.volta.sh | bash
