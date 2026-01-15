@@ -1,0 +1,18 @@
+theme = Monokai Remastered
+
+font-family = Source Han Code JP M
+font-family = Symbols Nerd Font
+font-size = 14
+font-feature = -calt
+font-feature = -dlig
+
+background-opacity = 0.9
+
+cursor-style = block
+cursor-style-blink = false
+
+keybind = ctrl+x=close_surface
+keybind = ctrl+n=new_tab
+keybind = ctrl+shift+-=new_split:down
+keybind = ctrl+shift+\=new_split:right
+keybind = ctrl+shift+o=goto_split:next

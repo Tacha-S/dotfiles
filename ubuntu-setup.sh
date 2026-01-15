@@ -87,6 +87,9 @@ rv completion zsh > ~/.zsh/completions/_rv
 # install volta
 curl https://get.volta.sh | bash
 
+# install ghostty
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
+
 # link binaries
 ln -s /usr/bin/batcat ~/.local/bin/bat
 ln -s $(which fdfind) ~/.local/bin/fd
