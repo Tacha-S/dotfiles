@@ -8,8 +8,14 @@ font-feature = -dlig
 
 background-opacity = 0.9
 
+shell-integration-features = no-cursor
 cursor-style = block
 cursor-style-blink = false
+
+gtk-titlebar-hide-when-maximized = true
+
+quick-terminal-screen = mouse
+quick-terminal-animation-duration = 0.5
 
 keybind = ctrl+x=close_surface
 keybind = ctrl+n=new_tab

@@ -87,9 +87,6 @@ rv completion zsh > ~/.zsh/completions/_rv
 # install volta
 curl https://get.volta.sh | bash
 
-# install ghostty
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
-
 # link binaries
 ln -s /usr/bin/batcat ~/.local/bin/bat
 ln -s $(which fdfind) ~/.local/bin/fd
@@ -154,7 +151,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
 # install snap packages
-sudo snap install slack dust procs foxglove-studio
+sudo snap install slack dust procs foxglove-studio ghostty
 
 # install starship
 curl -sS https://starship.rs/install.sh | sh -s -- --yes
