@@ -51,8 +51,8 @@ sudo apt update
 sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx5-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache bat fd-find eza ripgrep checkinstall ngrok antigravity
 
 # config github-cli
-gh completion -s zsh > _gh
-sudo mv _gh /usr/local/share/zsh/site-functions
+mkdir -p ~/.zsh/completions
+gh completion -s zsh > ~/.zsh/completions/_gh
 sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret/
 git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
 gh auth login -w -s write:public_key -s write:gpg_key
@@ -69,7 +69,6 @@ rm cuda-keyring_1.1-1_all.deb
 
 # install uv
 wget -qO- https://astral.sh/uv/install.sh | sh
-mkdir -p ~/.zsh/completions
 ${HOME}/.local/bin/uv generate-shell-completion zsh > ~/.zsh/completions/_uv
 echo "isort yapf cmakelang platformio yamlfixer-opt-nc clangd-tidy compdb ruff" | xargs -n1 ${HOME}/.local/bin/uv tool install
 ${HOME}/.local/bin/uv python pin --global 3.12
@@ -86,6 +85,7 @@ rv completion zsh > ~/.zsh/completions/_rv
 
 # install volta
 curl https://get.volta.sh | bash
+${HOME}/.volta/bin/volta completions -o ~/.zsh/completions/_volta zsh
 
 # link binaries
 ln -s /usr/bin/batcat ~/.local/bin/bat
@@ -151,7 +151,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
 # install snap packages
-sudo snap install slack dust procs foxglove-studio ghostty
+sudo snap install slack dust procs foxglove-studio ghostty --classic
 
 # install starship
 curl -sS https://starship.rs/install.sh | sh -s -- --yes
