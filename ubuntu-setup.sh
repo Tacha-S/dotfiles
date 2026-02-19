@@ -146,6 +146,19 @@ sudo snap install slack dust procs foxglove-studio ghostty --classic
 # install starship
 curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
+# install claude
+curl -fsSL https://claude.ai/install.sh | bash
+${HOME}/.volta/bin/volta install ccusage
+${HOME}/.local/bin/claude plugin install commit-commands@claude-plugins-official
+${HOME}/.local/bin/claude plugin install context7@claude-plugins-official
+${HOME}/.local/bin/claude plugin install code-review@claude-plugins-official
+${HOME}/.local/bin/claude plugin marketplace add thedotmack/claude-mem
+${HOME}/.local/bin/claude plugin install claude-mem
+${HOME}/.local/bin/claude plugin marketplace add obra/superpowers-marketplace
+${HOME}/.local/bin/claude plugin install superpowers@superpowers-marketplace
+${HOME}/.local/bin/claude plugin marketplace add martinemde/starship-claude
+${HOME}/.local/bin/claude plugin install starship-claude@starship-claude
+
 # fix clock
 sudo timedatectl set-local-rtc 1
 

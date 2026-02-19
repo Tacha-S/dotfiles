@@ -133,8 +133,8 @@ source ~/.cargo/env
 export PATH=/usr/local/cuda/bin:${PATH}
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
 
-# dlib paths
-export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:/usr/local/lib/pkgconfig
+# Claude
+export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -405,3 +405,5 @@ fi
 
 export MYPYPATH=""
 source ~/.secrets
+
+alias claude-mem='bun "/home/tacha/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
