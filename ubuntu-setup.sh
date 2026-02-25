@@ -149,6 +149,7 @@ curl -sS https://starship.rs/install.sh | sh -s -- --yes
 # install claude
 curl -fsSL https://claude.ai/install.sh | bash
 ${HOME}/.volta/bin/volta install ccusage
+${HOME}/.local/bin/claude plugin marketplace add anthropics/claude-plugins-official
 ${HOME}/.local/bin/claude plugin install commit-commands@claude-plugins-official
 ${HOME}/.local/bin/claude plugin install context7@claude-plugins-official
 ${HOME}/.local/bin/claude plugin install code-review@claude-plugins-official
