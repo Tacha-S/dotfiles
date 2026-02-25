@@ -162,6 +162,7 @@ zinit ice as"program" pick"tmuximum"
 zinit light arks22/tmuximum
 zinit ice as"program" mv"zemojify -> emojify"
 zinit light filipekiss/zemojify
+zinit light 1160054/claude-code-zsh-completion
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
