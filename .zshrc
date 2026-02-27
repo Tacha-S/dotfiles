@@ -164,7 +164,7 @@ zinit ice as"program" mv"zemojify -> emojify"
 zinit light filipekiss/zemojify
 zinit light 1160054/claude-code-zsh-completion
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 
 fzf-switch-branch() {
   local branches branch

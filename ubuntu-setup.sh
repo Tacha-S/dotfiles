@@ -32,10 +32,6 @@ echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/w
 curl -fsSL https://keys.anydesk.com/repos/DEB-GPG-KEY | gpg --yes --dearmor | sudo tee /usr/share/keyrings/anydesk.gpg > /dev/null
 echo 'deb [signed-by=/usr/share/keyrings/anydesk.gpg] http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk.list > /dev/null
 
-# add eza repo
-curl -fsSL https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | gpg --yes --dearmor | sudo tee /usr/share/keyrings/gierens.gpg > /dev/null
-echo "deb [signed-by=/usr/share/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list > /dev/null
-
 # add ngrok repo
 curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc | gpg --yes --dearmor | sudo tee /usr/share/keyrings/ngrok.gpg >/dev/null
 echo "deb [signed-by=/usr/share/keyrings/ngrok.gpg] https://ngrok-agent.s3.amazonaws.com bookworm main" | sudo tee /etc/apt/sources.list.d/ngrok.list >/dev/null
@@ -46,9 +42,12 @@ curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | gpg --yes 
 echo "deb [signed-by=/usr/share/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
   sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
 
+curl -sS https://debian.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc | gpg --dearmor --yes | sudo tee /usr/share/keyrings/debian.griffo.io.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/debian.griffo.io.gpg] https://debian.griffo.io/apt $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/debian.griffo.io.list > /dev/null
+
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx5-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache bat fd-find eza ripgrep checkinstall ngrok antigravity
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx5-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache bat fd-find ripgrep checkinstall ngrok antigravity fzf uv ghostty eza
 
 # config github-cli
 mkdir -p ~/.zsh/completions
@@ -68,10 +67,9 @@ sudo apt-get -y install cuda-13-1 cuda-drivers
 rm cuda-keyring_1.1-1_all.deb
 
 # install uv
-wget -qO- https://astral.sh/uv/install.sh | sh
-${HOME}/.local/bin/uv generate-shell-completion zsh > ~/.zsh/completions/_uv
-echo "isort yapf cmakelang platformio yamlfixer-opt-nc clangd-tidy compdb ruff" | xargs -n1 ${HOME}/.local/bin/uv tool install
-${HOME}/.local/bin/uv python pin --global 3.12
+uv generate-shell-completion zsh > ~/.zsh/completions/_uv
+echo "isort yapf cmakelang platformio yamlfixer-opt-nc clangd-tidy compdb ruff" | xargs -n1 uv tool install
+uv python pin --global 3.12
 
 # install rust
 curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh -s -- -y
@@ -79,7 +77,7 @@ rustup completions zsh > ~/.zsh/completions/_rustup
 rustup completions zsh cargo > ~/.zsh/completions/_cargo
 
 # install rv
-wget -qO ${HOME}/.local/bin/rv https://github.com/ErickKramer/ripvcs/releases/download/v1.0.2/ripvcs_1.0.2_linux_amd64
+wget -qO ${HOME}/.local/bin/rv https://github.com/ErickKramer/ripvcs/releases/download/v1.0.3/ripvcs_1.0.3_linux_amd64
 chmod +x ${HOME}/.local/bin/rv
 rv completion zsh > ~/.zsh/completions/_rv
 
@@ -136,12 +134,8 @@ gsettings set org.gnome.desktop.interface monospace-font-name 'Source Han Code J
 mkdir -p ~/.vim/bundle
 gh repo clone Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 
-# install fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
-
 # install snap packages
-sudo snap install slack dust procs foxglove-studio ghostty --classic
+sudo snap install slack dust procs foxglove-studio --classic
 
 # install starship
 curl -sS https://starship.rs/install.sh | sh -s -- --yes
