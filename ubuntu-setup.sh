@@ -47,7 +47,7 @@ echo "deb [signed-by=/usr/share/keyrings/debian.griffo.io.gpg] https://debian.gr
 
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx5-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache bat fd-find ripgrep checkinstall ngrok antigravity fzf uv ghostty eza
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx5-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache bat fd-find ripgrep checkinstall ngrok antigravity uv ghostty eza
 
 # config github-cli
 mkdir -p ~/.zsh/completions
@@ -134,6 +134,10 @@ gsettings set org.gnome.desktop.interface monospace-font-name 'Source Han Code J
 # install neobundle
 mkdir -p ~/.vim/bundle
 gh repo clone Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+
+# install fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
 
 # install snap packages
 sudo snap install slack dust procs foxglove-studio --classic
