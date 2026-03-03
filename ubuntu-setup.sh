@@ -83,10 +83,9 @@ wget -qO ${HOME}/.local/bin/rv https://github.com/ErickKramer/ripvcs/releases/do
 chmod +x ${HOME}/.local/bin/rv
 rv completion zsh > ~/.zsh/completions/_rv
 
-# install proto
-bash <(curl -fsSL https://moonrepo.dev/install/proto.sh)
-${HOME}/.proto/bin/proto completions --shell zsh > ~/.zsh/completions/_proto
-${HOME}/.proto/bin/proto use bun
+# install volta
+curl https://get.volta.sh | bash
+${HOME}/.volta/bin/volta completions -o ~/.zsh/completions/_volta zsh
 
 # link binaries
 ln -s /usr/bin/batcat ~/.local/bin/bat
@@ -149,6 +148,7 @@ curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
 # install claude
 curl -fsSL https://claude.ai/install.sh | bash
+${HOME}/.volta/bin/volta install ccusage
 ${HOME}/.local/bin/claude plugin marketplace add anthropics/claude-plugins-official
 ${HOME}/.local/bin/claude plugin install commit-commands@claude-plugins-official
 ${HOME}/.local/bin/claude plugin install context7@claude-plugins-official
