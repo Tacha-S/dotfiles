@@ -407,4 +407,4 @@ fi
 export MYPYPATH=""
 source ~/.secrets
 
-alias claude-mem='bun "/home/tacha/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
+alias claude-mem='bun "$HOME/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
