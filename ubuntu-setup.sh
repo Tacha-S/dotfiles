@@ -159,6 +159,7 @@ ${HOME}/.local/bin/claude plugin marketplace add obra/superpowers-marketplace
 ${HOME}/.local/bin/claude plugin install superpowers@superpowers-marketplace
 ${HOME}/.local/bin/claude plugin marketplace add martinemde/starship-claude
 ${HOME}/.local/bin/claude plugin install starship-claude@starship-claude
+${HOME}/.local/bin/claude mcp add drawio -s user -- npx -y @drawio/mcp
 
 # fix clock
 sudo timedatectl set-local-rtc 1
