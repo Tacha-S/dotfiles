@@ -44,6 +44,8 @@ sudo apt update
 
 sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx5-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache bat fd-find eza ripgrep checkinstall ngrok
 
+curl -o ~/.zsh/completions/_eza https://raw.githubusercontent.com/eza-community/eza/main/completions/zsh/_eza
+
 # config github-cli
 mkdir -p ~/.zsh/completions
 gh completion -s zsh > ~/.zsh/completions/_gh
