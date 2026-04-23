@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-# -*- coding:utf-8 -*-
 
 import json
 import pathlib
+
+import tomlkit
 
 workspaces_root = pathlib.Path('.').absolute().parent.parent
 srcs = workspaces_root / 'src'
@@ -60,3 +61,16 @@ settings['settings']['python.autoComplete.extraPaths'] = my_extra_paths + extra_
 
 with open(workspace_file, 'w') as f:
     json.dump(settings, f)
+
+pyrefly_toml = workspaces_root / 'pyrefly.toml'
+if pyrefly_toml.exists():
+    pyrefly_doc = tomlkit.parse(pyrefly_toml.read_text())
+else:
+    pyrefly_doc = tomlkit.document()
+
+search_path = tomlkit.array()
+search_path.extend(my_extra_paths + extra_paths)
+search_path.multiline(True)
+pyrefly_doc['search-path'] = search_path
+
+pyrefly_toml.write_text(tomlkit.dumps(pyrefly_doc))
