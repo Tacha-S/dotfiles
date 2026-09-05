@@ -1,4 +1,6 @@
 #!/bin/bash -eu
+# usage: ./ubuntu-setup.sh <mail>
+
 sudo apt install -y software-properties-common apt-transport-https curl ca-certificates
 
 # add github cli repo
@@ -44,13 +46,13 @@ sudo apt update
 
 sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx5-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache bat fd-find eza ripgrep checkinstall ngrok
 
+mkdir -p ~/.zsh/completions
 curl -o ~/.zsh/completions/_eza https://raw.githubusercontent.com/eza-community/eza/main/completions/zsh/_eza
 
 # config github-cli
-mkdir -p ~/.zsh/completions
 gh completion -s zsh > ~/.zsh/completions/_gh
-sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret/
-git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+# sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret/
+# git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
 gh auth login -w -s write:public_key -s write:gpg_key
 ssh-keygen -f ${HOME}/.ssh/id_rsa -t rsa -N ''
 gh ssh-key add ~/.ssh/id_rsa.pub
@@ -66,8 +68,9 @@ rm cuda-keyring_1.1-1_all.deb
 # install uv
 wget -qO- https://astral.sh/uv/install.sh | sh
 ${HOME}/.local/bin/uv generate-shell-completion zsh > ~/.zsh/completions/_uv
-echo "isort yapf cmakelang platformio yamlfixer-opt-nc clangd-tidy compdb ruff" | xargs -n1 ${HOME}/.local/bin/uv tool install
+echo "cmakelang platformio clangd-tidy ruff pyrefly" | xargs -n1 ${HOME}/.local/bin/uv tool install
 ${HOME}/.local/bin/uv python pin --global 3.12
+${HOME}/.local/bin/ruff generate-shell-completion zsh > ~/.zsh/completions/_ruff
 
 # install rust
 curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh -s -- -y
@@ -115,10 +118,10 @@ rm NerdFontsSymbolsOnly.zip
 
 # gpg key config
 gpg --gen-key
-gpg -a --export "tatsuro.sakaguchi@g.softbank.co.jp" > ~/.gnupg/pubkey.gpg
-(echo trust &echo 5 &echo y &echo quit) | gpg --command-fd 0 --edit-key "tatsuro.sakaguchi@g.softbank.co.jp"
+gpg -a --export "$1" > ~/.gnupg/pubkey.gpg
+(echo trust &echo 5 &echo y &echo quit) | gpg --command-fd 0 --edit-key "$1"
 gh gpg-key add ~/.gnupg/pubkey.gpg
-id=`gpg --list-keys tatsuro.sakaguchi@g.softbank.co.jp | head -2 | tail -1 | tr -d ' '`
+id=$(gpg --list-keys "$1" | head -2 | tail -1 | tr -d ' ')
 git config --global user.signingkey ${id}
 
 # GUI settings
