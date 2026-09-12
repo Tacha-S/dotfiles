@@ -51,15 +51,14 @@ curl -o ~/.zsh/completions/_eza https://raw.githubusercontent.com/eza-community/
 
 # config github-cli
 gh completion -s zsh > ~/.zsh/completions/_gh
-# sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret/
-# git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
 gh auth login -w -s write:public_key -s write:gpg_key
 ssh-keygen -f ${HOME}/.ssh/id_rsa -t rsa -N ''
 gh ssh-key add ~/.ssh/id_rsa.pub
 gh auth setup-git
 
 # install cuda 13-1
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
+VERSION_ID_NODOT=$(grep '^VERSION_ID=' /etc/os-release | cut -d'"' -f2 | tr -d '.')
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${VERSION_ID_NODOT}/x86_64/cuda-keyring_1.1-1_all.deb
 sudo dpkg -i cuda-keyring_1.1-1_all.deb
 sudo apt-get update
 sudo apt-get -y install cuda-13-1 cuda-drivers
@@ -98,13 +97,6 @@ sudo systemctl restart docker
 
 # change default shell
 chsh ${USER} -s /usr/bin/zsh
-
-# deploy my dotfiles
-cd ${HOME}/Documents
-gh repo clone dotfiles
-cd dotfiles
-make init
-make deploy
 
 # install fonts
 wget https://github.com/adobe-fonts/source-han-code-jp/releases/latest/download/SourceHanCodeJP.ttc
@@ -152,13 +144,15 @@ ${HOME}/.local/bin/claude plugin marketplace add anthropics/claude-plugins-offic
 ${HOME}/.local/bin/claude plugin install commit-commands@claude-plugins-official
 ${HOME}/.local/bin/claude plugin install context7@claude-plugins-official
 ${HOME}/.local/bin/claude plugin install code-review@claude-plugins-official
+${HOME}/.local/bin/claude plugin install clangd-lsp@claude-plugins-official
 ${HOME}/.local/bin/claude plugin marketplace add thedotmack/claude-mem
 ${HOME}/.local/bin/claude plugin install claude-mem
 ${HOME}/.local/bin/claude plugin marketplace add obra/superpowers-marketplace
 ${HOME}/.local/bin/claude plugin install superpowers@superpowers-marketplace
 ${HOME}/.local/bin/claude plugin marketplace add martinemde/starship-claude
 ${HOME}/.local/bin/claude plugin install starship-claude@starship-claude
-${HOME}/.local/bin/claude mcp add drawio -s user -- npx -y @drawio/mcp
+${HOME}/.local/bin/claude plugin marketplace add lolpack/pyrefly-lsp
+${HOME}/.local/bin/claude plugin install pyrefly-lsp@pyrefly-plugins
 
 # fix clock
 sudo timedatectl set-local-rtc 1
@@ -178,12 +172,3 @@ sudo apt purge -y apport
 im-config -n fcitx5
 fcitx5 &
 fcitx-imlist -e mozc
-
-# NAS config
-echo NAS password:
-read password
-echo "/nas -fstype=cifs,rw,username=gisen,password=$password,uid=1000,gid=1000 ://robotics-nas/Public" | sudo tee /etc/auto.nas
-echo "/bag -fstype=cifs,rw,username=gisen,password=$password,uid=1000,gid=1000 ://rosbag-nas/Public" | sudo tee -a /etc/auto.nas
-echo "/media-nas -fstype=cifs,rw,username=gisen,password=$password,uid=1000,gid=1000 ://media-nas/Public" | sudo tee -a /etc/auto.nas
-sudo sed -i -e "s:^+auto.master$:#+auto.master\n/- /etc/auto.nas --timeout 60:g" /etc/auto.master
-sudo service autofs restart
