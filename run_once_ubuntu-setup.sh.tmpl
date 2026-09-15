@@ -1,5 +1,4 @@
 #!/bin/bash -eu
-# usage: ./ubuntu-setup.sh <mail>
 
 sudo apt install -y software-properties-common apt-transport-https curl ca-certificates
 
@@ -110,10 +109,10 @@ rm NerdFontsSymbolsOnly.zip
 
 # gpg key config
 gpg --gen-key
-gpg -a --export "$1" > ~/.gnupg/pubkey.gpg
-(echo trust &echo 5 &echo y &echo quit) | gpg --command-fd 0 --edit-key "$1"
+gpg -a --export "{{ .email }}" > ~/.gnupg/pubkey.gpg
+(echo trust &echo 5 &echo y &echo quit) | gpg --command-fd 0 --edit-key "{{ .email }}"
 gh gpg-key add ~/.gnupg/pubkey.gpg
-id=$(gpg --list-keys "$1" | head -2 | tail -1 | tr -d ' ')
+id=$(gpg --list-keys "{{ .email }}" | head -2 | tail -1 | tr -d ' ')
 git config --global user.signingkey ${id}
 
 # GUI settings
