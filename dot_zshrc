@@ -122,10 +122,6 @@ alias rdi='rosdep install --from-paths . -yir --rosdistro=${ROS_DISTRO}'
 
 export PATH=$PATH:~/.local/bin
 
-# volta
-export VOLTA_HOME=$HOME/.volta
-export PATH=$PATH:$VOLTA_HOME/bin
-
 # rust
 source ~/.cargo/env
 
@@ -182,6 +178,9 @@ eval "$(direnv hook zsh)"
 
 # starship
 eval "$(starship init zsh)"
+
+# mise
+eval "$(mise activate zsh)"
 
 writecmd() {
   perl -e 'ioctl STDOUT, 0x5412, $_ for split //, do{ chomp($_ = <>); $_ }' ;

@@ -2,6 +2,8 @@
 
 sudo apt install -y software-properties-common apt-transport-https curl ca-certificates
 
+CODENAME=$(lsb_release -cs)
+
 # add github cli repo
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/githubcli-archive-keyring.gpg > /dev/null
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
@@ -41,9 +43,17 @@ echo "deb [signed-by=/usr/share/keyrings/gierens.gpg] http://deb.gierens.de stab
 curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc | gpg --yes --dearmor | sudo tee /usr/share/keyrings/ngrok.gpg >/dev/null
 echo "deb [signed-by=/usr/share/keyrings/ngrok.gpg] https://ngrok-agent.s3.amazonaws.com bookworm main" | sudo tee /etc/apt/sources.list.d/ngrok.list >/dev/null
 
+# add tailscale repo
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/${CODENAME}.noarmor.gpg | gpg --yes --dearmor | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/${CODENAME}.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+
+# add mise repo
+curl -fsSL https://mise.jdx.dev/gpg-key.pub | gpg --yes --dearmor | sudo tee /usr/share/keyrings/mise-archive-keyring.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/mise-archive-keyring.gpg] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
+
 sudo apt update
 
-sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx5-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache bat fd-find eza ripgrep checkinstall ngrok
+sudo apt install -y ssh cmake code git google-chrome-stable docker-ce nvidia-container-toolkit nvidia-container-runtime docker-compose-plugin zsh make vim tmux solaar gnome-tweak-tool fcitx5-mozc fcitx-imlist clang-format clangd global python3-pip htop cifs-utils autofs gh libsecret-1-0 libsecret-1-dev git-lfs network-manager-l2tp-gnome apt-rdepends sxhkd xdotool gawk direnv wezterm pre-commit ccache bat fd-find eza ripgrep checkinstall ngrok tailscale mise
 
 mkdir -p ~/.zsh/completions
 curl -o ~/.zsh/completions/_eza https://raw.githubusercontent.com/eza-community/eza/main/completions/zsh/_eza
@@ -79,10 +89,6 @@ rustup completions zsh cargo > ~/.zsh/completions/_cargo
 wget -qO ${HOME}/.local/bin/rv https://github.com/ErickKramer/ripvcs/releases/download/v1.0.3/ripvcs_1.0.3_linux_amd64
 chmod +x ${HOME}/.local/bin/rv
 rv completion zsh > ~/.zsh/completions/_rv
-
-# install volta
-curl https://get.volta.sh | bash
-${HOME}/.volta/bin/volta completions -o ~/.zsh/completions/_volta zsh
 
 # link binaries
 ln -s /usr/bin/batcat ~/.local/bin/bat
@@ -138,7 +144,7 @@ curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
 # install claude
 curl -fsSL https://claude.ai/install.sh | bash
-${HOME}/.volta/bin/volta install ccusage
+mise use -g npm:ccusage
 ${HOME}/.local/bin/claude plugin marketplace add anthropics/claude-plugins-official
 ${HOME}/.local/bin/claude plugin install commit-commands@claude-plugins-official
 ${HOME}/.local/bin/claude plugin install context7@claude-plugins-official
